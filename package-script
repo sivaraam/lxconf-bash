@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Required packages
-required_packages="git vim gparted"
+required_packages="git vim gparted openjdk-8-jdk-headless"
 
 echo "The current list of packages in required list are :"
 echo -e "\n\t\t$required_packages\n"
