@@ -1,0 +1,7 @@
+#! /bin/bash
+
+git config --global user.name 'Kaartic Sivaraam' &&
+git config --global user.email 'kaarticsivaraam91196@gmail.com' &&
+git config --global help.autoCorrect 2 &&
+git config --global alias.co checkout &&
+echo 'Git configuration successful !'

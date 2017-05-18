@@ -1,0 +1,26 @@
+#! /bin/bash
+
+# Update Package lists
+if ($1 == 'Upd')
+  sudo apt-get update ||
+  (su && apt-get update)
+fi
+
+# Update Package lists and Upgrade Packages
+if ($1 == 'Upg')
+  (sudo apt-get update && sudo apt-get upgrade) ||
+  (su && apt-get update && apt-get upgrade)
+fi
+
+# Update Package lists and Perform dist-upgrade
+if ($1 == 'DUpg')
+  (sudo apt-get update && sudo apt-get dist-upgrade) ||
+  (su && apt-get update && apt-get dist-upgrade)
+fi
+
+# Remove unwanted packages
+if ($1 == 'Rem')
+  (sudo apt-get autoremove) ||
+  (su && apt-get autoremove)
+
+

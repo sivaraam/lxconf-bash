@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# Install required packages
+required_packages = 'git vim gparted'
+
+sudo apt-get update install $required_packages
