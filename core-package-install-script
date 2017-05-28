@@ -1,9 +1,8 @@
 #! /bin/bash
 # Script that installs essential packages throug apt-get package manager
-# Usage:
 #
-#   {script-name}
-
+# Usage: {script-name}
+#
 # Required packages
 required_packages="git vim gparted openjdk-8-jdk-headless"
 

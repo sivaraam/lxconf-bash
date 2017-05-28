@@ -1,8 +1,7 @@
 #! /bin/bash
 # Script for configuring git for customized use
-# Usage:
 #
-#   [script-name] <editor-name>
+# Usage: {script-name} <editor-name>
 #
 # Defaults:
 #    editor : vim

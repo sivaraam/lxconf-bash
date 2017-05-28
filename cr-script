@@ -1,8 +1,8 @@
 #! /bin/bash
 # Script for logging into Cyberoam
-# Usage:
 #
-#   {script-name} <logout-parameter>
+# Usage: {script-name} <logout-parameter>
+#
 # Behaviour:
 #   Logs in when no parameter given
 #   Logs out if a single parameter is passed
