@@ -1,31 +1,66 @@
 #! /bin/bash
 
-# Update Package lists
-if [ "$1" == "upd" ]
+# Function to print error message
+error_msg() {
+  1>&2 # duplicate stdout to stderr
+  if [ -z $1 ]
+  then
+    echo "FATAL, improper usage of core function"
+  fi
+
+  echo $1
+
+  exec 1>&- # remove binding of stdout to stderr
+}
+
+# Function to print Usage information
+print_usage() {
+  if [ -z $1 ]
+  then
+    error_msg "Parameter missing for core function !"
+    exit
+  fi
+
+  # Shouldn't be a problem with executing the command
+  # when execution reaches here
+  script_invocation_name=`basename $0`
+  echo "Usage:"
+  echo -e "\n\t$script_invocation_name $1"
+}
+
+# Function to execute apt-get command
+apt_execute() {
+  if [ $# -lt 1 ]
+  then
+    error_msg "Parameter missing for core function !"
+    exit
+  fi
+
+  # Shouldn't be a problem with executing the command
+  # when execution reaches here
+  sudo apt-get $1
+}
+
+if [ "$1" == "upd" ] || [ "$1" == "u" ]    # Update Package lists
 then
-  sudo apt-get update ||
-  (su && apt-get update)
-fi
-
-# Update Package lists and Upgrade Packages
-if [ "$1" == "upg" ]
+  apt_execute update
+elif [ "$1" == "upg" ] || [ "$1" == "U" ]  # Update Package lists and Upgrade Packages
 then
-  (sudo apt-get update && sudo apt-get upgrade) ||
-  (su && apt-get update && apt-get upgrade)
-fi
-
-# Update Package lists and Perform dist-upgrade
-if [ "$1" == "dist" ]
+  apt_execute update && apt_execute upgrade
+elif [ "$1" == "dist" ] || [ "$1" == "d" ] # Update Package lists and Perform dist-upgrade
 then
-  (sudo apt-get update && sudo apt-get dist-upgrade) ||
-  (su && apt-get update && apt-get dist-upgrade)
-fi
-
-# Remove unwanted packages
-if [ "$1" == "rem" ]
+  apt_execute update && apt_execute dist-upgrade
+elif [ "$1" == "rem" ]  || [ "$1" == "r" ] # Remove unwanted packages
 then
-  (sudo apt-get autoremove) ||
-  (su && apt-get autoremove)
+  apt_execute autoremove
+elif [ "$1" == "ins" ] || [ "$1" == "i" ]  # Install package specified in second parameter # TODO : Generalize for multiple packages
+then
+  if [ $# -lt 2 ]
+  then
+    print_usage "ins <package_name>"
+    exit
+  fi
+  apt_execute "install $2"
+else                                       # Print usage method
+  print_usage "[ upd | upg | dist | rem | ins ]\n"
 fi
-
-
