@@ -14,9 +14,11 @@ git_global_config() {
   if [ $# -lt 2 ]
   then
     echo 1>&2 "FATAL! improper usage of core method"
+    exec 1>&- # remove binding of stdout to stderr
   fi
 
   git config --global $1 $2
+
   if [ $? -ne 0 ]
   then
     echo "Cofiguration of $1 failed!."
