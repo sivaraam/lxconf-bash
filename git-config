@@ -42,7 +42,6 @@ else
   git_global_config core.editor $1
 fi
 
-git_global_config core.editor vim &&
-git_global_config push.default simple && # Embrace new git push behaviour
+git_global_config push.default simple  # Embrace new git push behaviour
 
 echo 'Git configuration successful !'
