@@ -1,0 +1,19 @@
+#! /bin/bash
+# Script for logging into Cyberoam
+
+username=171037-kaartic
+
+# Change to folder containing executable as it's execution required it (!!!)
+cd /home/unique/Downloads/crclient
+
+# Log in if no parameters are given
+if [ $# -eq 0 ]
+then
+ ./crclient -u $username
+fi
+
+# Log out if ONE parameter is passed
+if [ $# -eq 1 ]
+then
+  ./crclient -l
+fi
