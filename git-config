@@ -1,9 +1,47 @@
 #! /bin/bash
 # Script for configuring git for customized use
+# Usage:
+#
+#   [script-name] <editor-name>
+#
+# Defaults:
+#    editor : vim
 
-git config --global user.name 'Kaartic Sivaraam' &&
-git config --global user.email 'kaarticsivaraam91196@gmail.com' &&
-git config --global help.autoCorrect 2 &&
-git config --global alias.co checkout &&
-git config --global core.editor vim &&
+# Function for global git configuration
+# Assumed that
+#  $1 - key
+#  $2 - value
+git_global_config() {
+  if [ $# -lt 2 ]
+  then
+    echo 1>&2 "FATAL! improper usage of core method"
+  fi
+
+  git config --global $1 $2
+  if [ $? -ne 0 ]
+  then
+    echo "Cofiguration of $1 failed!."
+    exit 1
+  fi
+}
+
+git_global_config user.name 'Kaartic Sivaraam' &&
+git_global_config user.email 'kaarticsivaraam91196@gmail.com' &&
+git_global_config help.autoCorrect 2 &&
+git_global_config alias.co checkout
+
+# If no editor specified, check for vim and use it
+if [ -z $1 ]
+then
+  ((command -v vim >/dev/null 2>&1) && git_global_config core.editor vim && echo "No editor specified. Using 'vim'.") || {
+    echo >&2 "Vim is not present. Set another editor by passing a parameter. Aborting.";
+    exit 1;
+  }
+else
+  git_global_config core.editor $1
+fi
+
+git_global_config core.editor vim &&
+git_global_config push.default simple && # Embrace new git push behaviour
+
 echo 'Git configuration successful !'
