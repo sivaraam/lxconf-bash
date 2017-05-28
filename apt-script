@@ -1,4 +1,16 @@
 #! /bin/bash
+# Script to ease common apt commands
+# Usage: 
+# 
+#     {script-name} [ upd | upg | dist | rem | ins <package-name> ]
+#
+# Short forms
+#   1. upd  - u
+#   2. upg  - U
+#   3. dist - d
+#   4. rem  - r
+#   5. ins  - i
+
 
 # Function to print error message
 error_msg() {
