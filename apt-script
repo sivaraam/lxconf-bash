@@ -13,29 +13,28 @@
 
 # Function to print error message
 error_msg() {
-  1>&2 # duplicate stdout to stderr
-  if [ -z $1 ]
+  exec 1>&2 # duplicate stdout to stderr
+
+  if [ -z "$1" ]
   then
     echo "FATAL, improper usage of core function"
+  else
+    echo -e $1
   fi
 
-  echo $1
-
   exec 1>&- # remove binding of stdout to stderr
+  exit 1
 }
+
 
 # Function to print Usage information
 print_usage() {
-  if [ -z $1 ]
-  then
-    error_msg "Parameter missing for core function !"
-    exit
-  fi
+  # By default print script parameters
+  script_params="[ upd | upg | dist | rem | ins ]"
+  msg=${1-$script_params}
 
-  # Shouldn't be a problem with executing the command
-  # when execution reaches here
   script_invocation_name=`basename $0`
-  echo "Usage: $script_invocation_name $1"
+  error_msg "Usage: $script_invocation_name $msg"
 }
 
 # Function to execute apt-get command
@@ -43,12 +42,27 @@ apt_execute() {
   if [ $# -lt 1 ]
   then
     error_msg "Parameter missing for core function !"
-    exit
   fi
 
   # Shouldn't be a problem with executing the command
   # when execution reaches here
-  sudo apt-get $1
+  root_check() {
+    ROOT_UID=0 # Root has $UID 0.
+    if [ $UID -eq $ROOT_UID ]
+    then
+      return 0
+    else
+      return 1
+    fi
+  }
+
+  # check if user is root and execut command accordingly
+  if root_check
+  then
+    apt-get $1
+  else
+    sudo apt-get $1
+  fi
 }
 
 if [ "$1" == "upd" ] || [ "$1" == "u" ]    # Update Package lists
@@ -68,9 +82,8 @@ then
   if [ $# -lt 2 ]
   then
     print_usage "ins <package_name>"
-    exit
   fi
   apt_execute "install $2"
 else                                       # Print usage method
-  print_usage "[ upd | upg | dist | rem | ins ]\n"
+  print_usage
 fi
