@@ -1,0 +1,16 @@
+#! /bin/bash
+# Script that copies all the files ending with "-script" in working directory
+# and copies them to the the "$HOME/.local/bin" directory
+
+# TODO
+# 1. Find way to get all files names "-script" in current directory
+# 2. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
+
+script_identifier="-script"
+file_fetch_command="ls | grep -e $script_identifier" 
+scripts=`ls | grep -e "$script_identifier"`
+
+for script in $scripts
+do
+  echo "$script"
+done                  
