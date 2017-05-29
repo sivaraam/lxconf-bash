@@ -59,4 +59,5 @@ fi
 if [ $# -eq 1 ]
 then
   ./crclient -l
+  ./crclient -l 171037-kaartic
 fi
