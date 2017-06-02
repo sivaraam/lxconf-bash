@@ -13,7 +13,7 @@
 
 # Function to print error message
 error_msg() {
-  exec 1>&2 # duplicate stdout to stderr
+  exec >&2 # duplicate stdout to stderr
 
   if [ -z "$1" ]
   then
@@ -22,7 +22,7 @@ error_msg() {
     echo -e $1
   fi
 
-  exec 1>&- # remove binding of stdout to stderr
+  exec >&- # remove binding of stdout to stderr
   exit 1
 }
 
