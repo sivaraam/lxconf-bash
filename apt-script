@@ -26,6 +26,19 @@ error_msg() {
   exit 1
 }
 
+# Function to extract packages from the parameter list
+extract_packages() {
+  if [ $# -lt 1 ]
+  then
+    error_msg "Parameter missing for core function"
+  fi
+
+  parameters=$1
+  pacakge_identifying_regex='s/[ ]*ins[ ]*//'
+
+  packages=`echo parameters | sed -e package_identifying_regex`
+  return packages
+}
 
 # Function to print Usage information
 print_usage() {
@@ -83,7 +96,8 @@ then
   then
     print_usage "ins <package_name>"
   fi
-  apt_execute "install $2"
+  packages=extract_packages $#
+  apt_execute "install $packages"
 else                                       # Print usage method
   print_usage
 fi
