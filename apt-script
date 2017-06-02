@@ -26,7 +26,9 @@ error_msg() {
   exit 1
 }
 
-# Function to extract packages from the parameter list
+# Function to extract packages from the parameter list.
+# It prints the packages which could be substituted using
+# in a variable using command substituition.
 extract_packages() {
   if [ $# -lt 1 ]
   then
@@ -34,10 +36,10 @@ extract_packages() {
   fi
 
   parameters=$1
-  pacakge_identifying_regex='s/[ ]*ins[ ]*//'
+  package_identifying_regex='s/[ ]*ins[ ]*//'
 
-  packages=`echo parameters | sed -e package_identifying_regex`
-  return packages
+  packages=`echo $parameters | sed -e "$package_identifying_regex"`
+  echo "$packages"
 }
 
 # Function to print Usage information
@@ -90,13 +92,13 @@ then
 elif [ "$1" == "rem" ]  || [ "$1" == "r" ] # Remove unwanted packages
 then
   apt_execute autoremove
-elif [ "$1" == "ins" ] || [ "$1" == "i" ]  # Install package specified in second parameter # TODO : Generalize for multiple packages
+elif [ "$1" == "ins" ] || [ "$1" == "i" ]  # Install package specified in second parameter
 then
   if [ $# -lt 2 ]
   then
     print_usage "ins <package_name>"
   fi
-  packages=extract_packages $#
+  packages=`extract_packages "$*"`
   apt_execute "install $packages"
 else                                       # Print usage method
   print_usage
