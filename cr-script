@@ -11,6 +11,7 @@
 #
 
 # Function to append data to .bashrc
+# Assumes existence of .bashrc
 add_to_bashrc() {
   if [ -z $1 ]
   then
