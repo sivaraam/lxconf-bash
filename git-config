@@ -36,6 +36,7 @@ execute_git() {
 # Debug
 # set -x
 
+notify "Starting global configuration of git"
 execute_git user.name 'Kaartic Sivaraam' &&
 execute_git user.email 'kaarticsivaraam91196@gmail.com' &&
 execute_git help.autoCorrect 2 &&
@@ -45,10 +46,10 @@ DEFAULT_EDITOR="vim"
 # If no editor specified, check for vim and use it
 if [ -z "$1" ]
 then
-  notify "${NOTICE}No editor specified. Using $DEFAULT_EDITOR."
+  notify "No editor specified. Using $DEFAULT_EDITOR."
   PREF_EDITOR=$DEFAULT_EDITOR
 else
-  notify "${NOTICE}Using $1 as editor"
+  notify "Using $1 as editor"
   PREF_EDITOR=$1
 fi
 
@@ -62,4 +63,3 @@ else
 fi
 
 execute_git push.default simple  # Embrace new git push behaviour
-echo 'Git configuration successful !'

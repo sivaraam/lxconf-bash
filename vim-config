@@ -40,4 +40,4 @@ tab_to_space_config="set \
 VIMRC="$HOME/.vimrc"
 write_to_file $VIMRC "$defaults_addition"
 append_to_file $VIMRC "\n$tab_to_space_config"
-echo "Vim configuration successful!"
+echo "Vim configuration for 'tab to spaces' successful!"

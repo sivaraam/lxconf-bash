@@ -44,12 +44,14 @@ cd $CR_CLIENT_LOCATION
 # Log in if no parameters are given
 if [ $# -eq 0 ]
 then
+  echo "Attempting to log-in..."
  ./crclient -u $username
 fi
 
 # Log out if ONE parameter is passed
 if [ $# -eq 1 ]
 then
+  echo "Attempting to log out..."
   ./crclient -l
   ./crclient -l 171037-kaartic
 fi

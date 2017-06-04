@@ -7,25 +7,40 @@
 
 . ./common-script
 
-IDENTIFIER="-script"
-scripts=`ls | grep -e "$IDENTIFIER"`
-
 # Create the DESTINATION directory if it doesn't exist
 # Else silent failure
 DESTINATION="$HOME/.local/bin"
 mkdir -p $DESTINATION
 
+IDENTIFIER='-script'
+scripts=`ls | grep -e "$IDENTIFIER"`
+
+execute_script_install() {
+  if [ $# -ne 2 ]
+  then
+    error $FUNCTION_ERROR_MSG
+  fi
+
+  cp $1 $2
+  if [ $? -eq 0 ]
+  then
+    echo -e "${BROWN}$1${NC} sucessfully installed."
+  else
+    error "Installation of ${RED}$1${NC} failed"
+  fi
+}
+
 # Install the scripts
 for script in $scripts
 do
-  if [ "$script" != "common-script" ]
+  if [ "$script" != 'common-script' ]
   then
     dest_file_name=`echo $script | tr a-z A-Z`
   else
     dest_file_name=$script
   fi
 
-  cp $script $DESTINATION/$dest_file_name
+  execute_script_install $script $DESTINATION/$dest_file_name
 done
 notify "Previous versions of script would have been replaced."
 

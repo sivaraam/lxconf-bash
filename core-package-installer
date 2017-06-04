@@ -13,7 +13,10 @@ dict_packages="dict dict-gcide dict-wn"
 required_packages="git vim gparted openjdk-8-jdk-headless $dict_packages"
 
 echo "The current list of packages in required list are :"
-echo -e "\n\t\t$required_packages\n"
-echo -e "Installing the above packages... \n" 
+for package in $required_packages
+do
+  echo '* '"$package"
+done
+echo "Installing the above packages..."
 
 ./apt-script ins $required_packages
