@@ -31,7 +31,7 @@ then
   # Add command to export variable in future
   add_to_bashrc '\n# Location of crclient executable'
   add_to_bashrc "export CR_CLIENT_LOCATION=$location"
-  echo "Command to export CR_CLIENT_LOCATION has been added to your .bashrc file successfully!"
+  notify "Command to export CR_CLIENT_LOCATION has been added to your .bashrc file successfully!"
 
   # TODO Try to export it for current session
   # Temporarily use local variable

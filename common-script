@@ -5,6 +5,12 @@ EXIT_FAILURE=1
 ERR_PARAM=17
 ERR_REQUIRED_FILE=196
 
+# Colour Escape codes
+RED='\033[0;31m'
+BROWN='\033[0;33m'
+ALERT='\033[1;32m'
+NC='\033[0m'
+
 FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
 
 # Function to print error message
@@ -38,6 +44,17 @@ print_usage() {
 
   script_invocation_name=`basename $0`
   error "Usage: $script_invocation_name $msg" $ERR_PARAM
+}
+
+# Function that notifies an user about a message. Notification is done in different colour
+# for colour enabled shells.
+notify() {
+  if [ -z "$1" ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  echo -e "${ALERT}ALERT:${NC} $1"
 }
 
 # Require function to test if a required file exists

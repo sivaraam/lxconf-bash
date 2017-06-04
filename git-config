@@ -27,7 +27,9 @@ execute_git() {
 
   if [ $? -ne 0 ]
   then
-    error "Cofiguration of $1 failed!." $ERR_CONFIG_FAIL
+    error "Cofiguration of ${BROWN}$1${NC} with ${RED}$2${NC} failed!." $ERR_CONFIG_FAIL
+  else
+    echo -e "Configuration of ${BROWN}$1${NC} with ${RED}$2${NC} successful"
   fi
 }
 
@@ -43,10 +45,10 @@ DEFAULT_EDITOR="vim"
 # If no editor specified, check for vim and use it
 if [ -z "$1" ]
 then
-  echo "No editor specified. Using $DEFAULT_EDITOR."
+  notify "${NOTICE}No editor specified. Using $DEFAULT_EDITOR."
   PREF_EDITOR=$DEFAULT_EDITOR
 else
-  echo "Using $1 as editor"
+  notify "${NOTICE}Using $1 as editor"
   PREF_EDITOR=$1
 fi
 
