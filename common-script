@@ -21,7 +21,7 @@ error() {
   fi
 
   exec >&- # close stdout
-  if [ -z $2 ]
+  if [ -z "$2" ]
   then
     exit $EXIT_FAILURE
   else
@@ -48,7 +48,7 @@ print_usage() {
 #  - Returns when file exists
 #  - Prints error and exists when file cannot be found
 require() {
-  if [ -z $1 ]
+  if [ -z "$1" ]
   then
     error $FUNCTION_ERR_MSG
   fi
@@ -81,4 +81,13 @@ append_to_file() {
 
   require $1
   echo -e $2 >> $1
+}
+
+add_to_bashrc() {
+  if [ -z "$1" ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  append_to_file $HOME/.bashrc "$1"
 }
