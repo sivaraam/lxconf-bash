@@ -41,7 +41,7 @@ execute_git alias.co checkout
 
 DEFAULT_EDITOR="vim"
 # If no editor specified, check for vim and use it
-if [ -z $1 ]
+if [ -z "$1" ]
 then
   echo "No editor specified. Using $DEFAULT_EDITOR."
   PREF_EDITOR=$DEFAULT_EDITOR
