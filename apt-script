@@ -17,7 +17,7 @@
 execute_apt() {
   if [ $# -lt 1 ]
   then
-    error "Parameter missing for core function !"
+    error $FUNCTION_ERR_MSG
   fi
 
   # Return values

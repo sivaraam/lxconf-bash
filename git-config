@@ -20,7 +20,7 @@ ERR_EDITOR_MISS=154
 execute_git() {
   if [ $# -lt 2 ]
   then
-    error "FATAL! improper usage of core method"
+    error $FUNCTION_ERR_MSG
   fi
 
   git config --global $1 "$2"

@@ -5,6 +5,8 @@ EXIT_FAILURE=1
 ERR_PARAM=17
 ERR_REQUIRED_FILE=196
 
+FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
+
 # Function to print error message
 # Exit status passed as asecond argument
 # Default is value of EXIT_FAILURE
@@ -13,7 +15,7 @@ error() {
 
   if [ $# -lt 1 ]
   then
-    echo "FATAL, improper usage of core function"
+    echo $FUNCTION_ERR_MSG
   else
     echo -e $1
   fi
@@ -48,7 +50,7 @@ print_usage() {
 require() {
   if [ -z $1 ]
   then
-    error "Parameter missing for core function!"
+    error $FUNCTION_ERR_MSG
   fi
 
   if [ ! -f $1 ]
