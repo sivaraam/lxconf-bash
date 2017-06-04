@@ -53,6 +53,6 @@ require() {
 
   if [ ! -f $1 ]
   then
-    error "$1 doesn't exist but it's required.\nExiting" $ERR_REQUIRED_FILE
+    error "$1 doesn't exist but it's required. Aborting" $ERR_REQUIRED_FILE
   fi
 }

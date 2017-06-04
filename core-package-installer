@@ -3,7 +3,7 @@
 #
 # Usage: {script-name}
 
-. ./common-script
+. ./common
 
 # Use the apt-script to install packages
 require "./apt-script"
