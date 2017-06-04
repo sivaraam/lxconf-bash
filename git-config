@@ -7,7 +7,7 @@
 # Defaults:
 #    editor : vim
 
-. ./common
+. ./common-script
 
 # Exit statuses
 ERR_CONFIG_FAIL=136

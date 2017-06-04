@@ -11,7 +11,7 @@
 #   5. ins  - i
 
 # Source the common functions
-. ./common
+. ./common-script
 
 # Function to execute apt-get command
 execute_apt() {
