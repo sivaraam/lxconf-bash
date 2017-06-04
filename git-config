@@ -1,47 +1,63 @@
 #! /bin/bash
 # Script for configuring git for customized use
+# It configures using --global option
 #
 # Usage: {script-name} <editor-name>
 #
 # Defaults:
 #    editor : vim
 
+. ./common
+
+# Exit statuses
+ERR_CONFIG_FAIL=136
+ERR_EDITOR_MISS=154
+
 # Function for global git configuration
 # Assumed that
 #  $1 - key
 #  $2 - value
-git_global_config() {
+execute_git() {
   if [ $# -lt 2 ]
   then
-    echo 1>&2 "FATAL! improper usage of core method"
-    exec 1>&- # remove binding of stdout to stderr
+    error $FUNCTION_ERR_MSG
   fi
 
-  git config --global $1 $2
+  git config --global $1 "$2"
 
   if [ $? -ne 0 ]
   then
-    echo "Cofiguration of $1 failed!."
-    exit 1
+    error "Cofiguration of $1 failed!." $ERR_CONFIG_FAIL
   fi
 }
 
-git_global_config user.name 'Kaartic Sivaraam' &&
-git_global_config user.email 'kaarticsivaraam91196@gmail.com' &&
-git_global_config help.autoCorrect 2 &&
-git_global_config alias.co checkout
+# Debug
+# set -x
 
+execute_git user.name 'Kaartic Sivaraam' &&
+execute_git user.email 'kaarticsivaraam91196@gmail.com' &&
+execute_git help.autoCorrect 2 &&
+execute_git alias.co checkout
+
+DEFAULT_EDITOR="vim"
 # If no editor specified, check for vim and use it
 if [ -z $1 ]
 then
-  ((command -v vim >/dev/null 2>&1) && git_global_config core.editor vim && echo "No editor specified. Using 'vim'.") || {
-    echo >&2 "Vim is not present. Set another editor by passing a parameter. Aborting.";
-    exit 1;
-  }
+  echo "No editor specified. Using $DEFAULT_EDITOR."
+  PREF_EDITOR=$DEFAULT_EDITOR
 else
-  git_global_config core.editor $1
+  echo "Using $1 as editor"
+  PREF_EDITOR=$1
 fi
 
-git_global_config push.default simple  # Embrace new git push behaviour
+# Check if editor is present
+if ( command -v $PREF_EDITOR >/dev/null 2>&1 )
+then
+  execute_git core.editor $PREF_EDITOR
+else
+  error "$PREF_EDITOR is not present. Set another editor by passing a parameter. Aborting." $ERR_EDITOR_MISS
+fi
+
+execute_git push.default simple  # Embrace new git push behaviour
 
 echo 'Git configuration successful !'

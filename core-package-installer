@@ -2,7 +2,12 @@
 # Script that installs essential packages throug apt-get package manager
 #
 # Usage: {script-name}
-#
+
+. ./common
+
+# Use the apt-script to install packages
+require "./apt-script"
+
 # Required packages
 dict_packages="dict dict-gcide dict-wn"
 required_packages="git vim gparted openjdk-8-jdk-headless $dict_packages"
@@ -11,4 +16,4 @@ echo "The current list of packages in required list are :"
 echo -e "\n\t\t$required_packages\n"
 echo -e "Installing the above packages... \n" 
 
-sudo apt-get update && sudo apt-get install $required_packages
+./apt-script ins $required_packages

@@ -1,0 +1,84 @@
+# Common functions used by all scripts
+
+# Exit statuses
+EXIT_FAILURE=1
+ERR_PARAM=17
+ERR_REQUIRED_FILE=196
+
+FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
+
+# Function to print error message
+# Exit status passed as asecond argument
+# Default is value of EXIT_FAILURE
+error() {
+  exec >&2 # switch stdout to stderr
+
+  if [ $# -lt 1 ]
+  then
+    echo $FUNCTION_ERR_MSG
+  else
+    echo -e $1
+  fi
+
+  exec >&- # close stdout
+  if [ -z $2 ]
+  then
+    exit $EXIT_FAILURE
+  else
+    exit $2
+  fi
+}
+
+
+# Function to print Usage information
+print_usage() {
+  # By default print script parameters
+  script_params="[ upd | upg | dist | rem | ins ]"
+  msg=${1-$script_params}
+
+  script_invocation_name=`basename $0`
+  error "Usage: $script_invocation_name $msg" $ERR_PARAM
+}
+
+# Require function to test if a required file exists
+# Behaviour:
+#  - Accepts path of file as first parameter
+#    Path could be relative to current directory (or)
+#    it could be an absolute one
+#  - Returns when file exists
+#  - Prints error and exists when file cannot be found
+require() {
+  if [ -z $1 ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  if [ ! -f $1 ]
+  then
+    error "$1 doesn't exist, but it's required. Aborting" $ERR_REQUIRED_FILE
+  fi
+}
+
+# Function that writes the string in second parameter to file
+# specified in first parameter
+write_to_file() {
+  if [ $# -ne 2 ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  require $1
+  echo -e $2 > $1
+}
+
+# Function that appends the string in second parameter to file
+# specified in first parameter
+append_to_file() {
+  if [ $# -ne 2 ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  require $1
+  echo -e $2 >> $1
+}
