@@ -5,6 +5,8 @@
 # TODO
 # 1. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
 
+. ./common-script
+
 IDENTIFIER="-script"
 scripts=`ls | grep -e "$IDENTIFIER"`
 
@@ -13,6 +15,7 @@ scripts=`ls | grep -e "$IDENTIFIER"`
 DESTINATION="$HOME/.local/bin"
 mkdir -p $DESTINATION
 
+# Install the scripts
 for script in $scripts
 do
   if [ "$script" != "common-script" ]
@@ -25,3 +28,18 @@ do
   cp $script $DESTINATION/$dest_file_name
 done
 echo "Script installation successful!"
+echo "Note: Previous versions would have been replaced."
+
+# Debug
+# set -x
+
+# Check if destination is in PATH and add an export
+# command to export it if it's not in PATH
+if ( echo $PATH | grep -o "$DESTINATION" >&/dev/null )
+then
+  echo "Destination folder is in PATH. Not adding it."
+else
+  add_to_bashrc "\n# Add location of local scripts to PATH"
+  add_to_bashrc 'export PATH=$PATH:'"$DESTINATION"
+  echo "Location of local scripts will be added to PATH automatically in 'future' bash sessions."
+fi
