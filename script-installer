@@ -3,14 +3,25 @@
 # and copies them to the the "$HOME/.local/bin" directory
 
 # TODO
-# 1. Find way to get all files names "-script" in current directory
-# 2. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
+# 1. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
 
-script_identifier="-script"
-file_fetch_command="ls | grep -e $script_identifier" 
-scripts=`ls | grep -e "$script_identifier"`
+IDENTIFIER="-script"
+scripts=`ls | grep -e "$IDENTIFIER"`
+
+# Create the DESTINATION directory if it doesn't exist
+# Else silent failure
+DESTINATION="$HOME/.local/bin"
+mkdir -p $DESTINATION
 
 for script in $scripts
 do
-  echo "$script"
-done                  
+  if [ "$script" != "common-script" ]
+  then
+    dest_file_name=`echo $script | tr a-z A-Z`
+  else
+    dest_file_name=$script
+  fi
+
+  cp $script $DESTINATION/$dest_file_name
+done
+echo "Script installation successful!"
