@@ -82,3 +82,12 @@ append_to_file() {
   require $1
   echo -e $2 >> $1
 }
+
+add_to_bashrc() {
+  if [ -z "$1" ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  append_to_file $HOME/.bashrc "$1"
+}
