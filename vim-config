@@ -4,6 +4,8 @@
 #
 # Usage: {script-name}
 
+. ./common
+
 # Recommended  addition to .vimrc
 # Due to presence of defaults.vim
 # See ":help defaults.vim"
@@ -33,6 +35,9 @@ tab_to_space_config="set \
                       expandtab
                      "
 
-echo -e $defaults_addition > $HOME/.vimrc
-echo -e "\n$tab_to_space_config" >> $HOME/.vimrc
+# TODO vim_version_8 function
+
+VIMRC="$HOME/.vimrc"
+write_to_file $VIMRC "$defaults_addition"
+append_to_file $VIMRC "\n$tab_to_space_config"
 echo "Vim configuration successful!"

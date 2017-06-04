@@ -12,17 +12,6 @@
 
 . ./common
 
-# Function to append data to .bashrc
-# Assumes existence of .bashrc
-add_to_bashrc() {
-  if [ -z $1 ]
-  then
-    error "FATAL! required parameter missing for core function"
-  fi
-
-  echo -e $1 >> $HOME/.bashrc
-}
-
 username=171037-kaartic
 
 # If CR_CLIENT_LOCATION isn't defined get it's location
@@ -40,11 +29,13 @@ then
   done
 
   # Add command to export variable in future
-  add_to_bashrc "\n# Location of crclient executable"
-  add_to_bashrc "export CR_CLIENT_LOCATION=$location"
+  BASHRC_LOCATION="$HOME/.bashrc"
+  append_to_file $BASHRC_LOCATION "\n# Location of crclient executable"
+  append_to_file $BASHRC_LOCATION "export CR_CLIENT_LOCATION=$location"
   echo "Command to export CR_CLIENT_LOCATION has been added to your .bashrc file successfully!"
 
-  # Temporarily use locally defined variable
+  # TODO Try to export it for current session
+  # Temporarily use local variable
   CR_CLIENT_LOCATION=$location
 fi
 
