@@ -33,11 +33,11 @@ error() {
 # Function to print Usage information
 print_usage() {
   # By default print script parameters
-  script_params="[ upd | upg | dist | rem | ins ]"
-  msg=${1-$script_params}
+  SCRIPT_PARAMS="[ upd | upg | dist | rem | ins ]"
+  usage_msg=${1-$SCRIPT_PARAMS}
 
   script_invocation_name=`basename $0`
-  error "Usage: $script_invocation_name $msg" $ERR_PARAM
+  error "Usage: $script_invocation_name $usage_msg" $ERR_PARAM
 }
 
 # Require function to test if a required file exists

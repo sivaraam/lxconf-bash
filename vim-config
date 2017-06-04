@@ -10,7 +10,7 @@
 # Due to presence of defaults.vim
 # See ":help defaults.vim"
 # Doesn't work for version less than 8
-defaults_addition='unlet! skip_defaults_vim\nsource $VIMRUNTIME/defaults.vim'
+DEFAULTS_ADDITION='unlet! skip_defaults_vim\nsource $VIMRUNTIME/defaults.vim'
 
 # Variables for configuration
 # Number of space to insert when hitting <Tab> in all places
@@ -38,6 +38,6 @@ tab_to_space_config="set \
 # TODO vim_version_8 function
 
 VIMRC="$HOME/.vimrc"
-write_to_file $VIMRC "$defaults_addition"
+write_to_file $VIMRC "$DEFAULTS_ADDITION"
 append_to_file $VIMRC "\n$tab_to_space_config"
 echo "Vim configuration successful!"
