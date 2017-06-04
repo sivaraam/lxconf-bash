@@ -10,13 +10,14 @@
 #     When not declared, asks for location and adds command to export CR_CLIENT_LOCATION to .bashrc
 #
 
+. ./common-script
+
 # Function to append data to .bashrc
 # Assumes existence of .bashrc
 add_to_bashrc() {
   if [ -z $1 ]
   then
-    echo 1>&2 "FATAL! required parameter missing for core function"
-    exec 1>&- # remove binding of stdout to stderr
+    error "FATAL! required parameter missing for core function"
   fi
 
   echo -e $1 >> $HOME/.bashrc
