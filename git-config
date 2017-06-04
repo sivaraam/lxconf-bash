@@ -50,7 +50,8 @@ else
   PREF_EDITOR=$1
 fi
 
-# Check if editor is present
+# Check if editor is present and execute config
+# command only if it's present
 if ( command -v $PREF_EDITOR >/dev/null 2>&1 )
 then
   execute_git core.editor $PREF_EDITOR
@@ -59,5 +60,4 @@ else
 fi
 
 execute_git push.default simple  # Embrace new git push behaviour
-
 echo 'Git configuration successful !'
