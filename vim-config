@@ -38,6 +38,12 @@ tab_to_space_config="set \
 # TODO vim_version_8 function
 
 VIMRC="$HOME/.vimrc"
-write_to_file $VIMRC "$DEFAULTS_ADDITION"
-append_to_file $VIMRC "\n$tab_to_space_config"
-echo "Vim configuration for 'tab to spaces' successful!"
+
+if [ root_check ] && [ "$1" != 'root' ]
+then
+  error 'You are executing this script as root.\nTo override pass root as first argument.\nAborting'
+else
+  write_to_file $VIMRC "$DEFAULTS_ADDITION"
+  append_to_file $VIMRC "\n$tab_to_space_config"
+  echo "Vim configuration for 'tab to spaces' successful!"
+fi
