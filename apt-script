@@ -23,15 +23,6 @@ execute_apt() {
   # Return values
   IS_ROOT=0
   IS_NOT_ROOT=1
-  root_check() {
-    ROOT_UID=0 # Root has $UID 0.
-    if [ $UID -eq $ROOT_UID ]
-    then
-      return $IS_ROOT
-    else
-      return $IS_NOT_ROOT
-    fi
-  }
 
   # check if user is root and execut command accordingly
   if root_check
