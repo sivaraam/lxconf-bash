@@ -108,6 +108,10 @@ add_to_bashrc() {
   append_to_file $HOME/.bashrc "$1"
 }
 
+
+# Return values
+IS_ROOT=0
+IS_NOT_ROOT=1
 # Function to check if user is ROOT
 root_check() {
   ROOT_UID=0 # Root has $UID 0.

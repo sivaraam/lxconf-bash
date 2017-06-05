@@ -39,7 +39,11 @@ tab_to_space_config="set \
 
 VIMRC="$HOME/.vimrc"
 
-if [ root_check ] && [ "$1" != 'root' ]
+# Debug
+# set -x
+
+# Check if user is ROOT and notify if he is.
+if root_check && [ "$1" != 'root' ]
 then
   error 'You are executing this script as root.\nTo override pass root as first argument.\nAborting'
 else
