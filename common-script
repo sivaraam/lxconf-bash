@@ -84,7 +84,6 @@ write_to_file() {
     error $FUNCTION_ERR_MSG
   fi
 
-  require $1
   echo -e $2 > $1
 }
 
