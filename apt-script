@@ -42,29 +42,30 @@ execute_apt() {
   fi
 }
 
-if [ "$1" == "upd" ] || [ "$1" == "u" ]    # Update Package lists
-then
-  execute_apt update
-elif [ "$1" == "upg" ] || [ "$1" == "U" ]  # Update Package lists and Upgrade Packages
-then
-  execute_apt update && execute_apt upgrade
-elif [ "$1" == "dist" ] || [ "$1" == "d" ] # Update Package lists and Perform dist-upgrade
-then
-  execute_apt update && execute_apt dist-upgrade
-elif [ "$1" == "rem" ]  || [ "$1" == "r" ] # Remove unwanted packages
-then
-  execute_apt autoremove
-elif [ "$1" == "ins" ] || [ "$1" == "i" ]  # Install package specified in second parameter
-then
-  if [ $# -lt 2 ]
-  then
-    print_usage "ins <package_name>"
-  fi
-#  packages=`extract_packages "$*"`
+case "$1" in
+  "upd" | "u")  # Update Package lists
+    execute_apt update
+    ;;
+  "upg" | "U") # Update Package lists and Upgrade Packages
+    execute_apt update && execute_apt upgrade
+    ;;
+  "dist" | "d") # Update Package lists and Perform dist-upgrade
+    execute_apt update && execute_apt dist-upgrade
+    ;;
+  "rem" | "r") # Remove unwanted packages
+    execute_apt autoremove
+    ;;
+  "ins" | "i")  # Install package specified in second parameter
+    if [ $# -lt 2 ]
+    then
+      print_usage "ins <package_name>"
+    fi
+    #  packages=`extract_packages "$*"`
 
-# shift by one parameter to get the list of packages
-  shift
-  execute_apt "install $@"
-else                                       # Print usage method
-  print_usage
-fi
+    # shift by one parameter to get the list of packages
+    shift
+    execute_apt "install $@"
+    ;;
+  *)    # Print usage method
+    print_usage
+esac
