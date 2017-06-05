@@ -10,9 +10,9 @@
 #     When not declared, asks for location and adds command to export CR_CLIENT_LOCATION to .bashrc
 #
 
-. ./common-script
+. common-script
 
-username=171037-kaartic
+USERNAME=171037-kaartic
 
 # If CR_CLIENT_LOCATION isn't defined get it's location
 # Further, add comand to export it to .bashrc
@@ -45,7 +45,7 @@ cd $CR_CLIENT_LOCATION
 if [ $# -eq 0 ]
 then
   echo "Attempting to log-in..."
- ./crclient -u $username
+ ./crclient -u $USERNAME
 fi
 
 # Log out if ONE parameter is passed
@@ -53,5 +53,5 @@ if [ $# -eq 1 ]
 then
   echo "Attempting to log out..."
   ./crclient -l
-  ./crclient -l 171037-kaartic
+  ./crclient -l $USERNAME
 fi
