@@ -15,23 +15,23 @@ DEFAULTS_ADDITION='unlet! skip_defaults_vim\nsource $VIMRUNTIME/defaults.vim'
 # Variables for configuration
 # Number of space to insert when hitting <Tab> in all places
 # If smarttab is on "shiftwidth" value takes effect at starting of lines
-tabstop_size=2
+TABSTOP_SIZE=2
 
 # Useful for "ts" option
 # Not clear (see :help softtabstop)
-softtabstop_size=0
+SOFTTABSTOP_SIZE=0
 
 # 1. Number of spaces to insert when hitting <Tab> in start of line
 #    Takes effect only if smarttab to be on else only "2" is in effect.
 # 2. Number of spaces to insert when shifting (see shift-left-right)
-shiftwidth_size=2
+SHIFTWIDTH_SIZE=2
 
 
 # Configuration used
 tab_to_space_config="set \
-                      tabstop=$tabstop_size \
-                      softtabstop=$softtabstop_size \
-                      shiftwidth=$shiftwidth_size \
+                      tabstop=$TABSTOP_SIZE \
+                      softtabstop=$SOFTTABSTOP_SIZE \
+                      shiftwidth=$SHIFTWIDTH_SIZE \
                       expandtab
                      "
 
