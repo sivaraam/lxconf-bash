@@ -43,29 +43,40 @@ execute_apt() {
 }
 
 case "$1" in
-  "upd" | "u")  # Update Package lists
-    execute_apt update
-    ;;
-  "upg" | "U") # Update Package lists and Upgrade Packages
-    execute_apt update && execute_apt upgrade
-    ;;
-  "dist" | "d") # Update Package lists and Perform dist-upgrade
-    execute_apt update && execute_apt dist-upgrade
-    ;;
-  "rem" | "r") # Remove unwanted packages
-    execute_apt autoremove
-    ;;
-  "ins" | "i")  # Install package specified in second parameter
-    if [ $# -lt 2 ]
-    then
-      print_usage "ins <package_name>"
-    fi
-    #  packages=`extract_packages "$*"`
+  "upd" | "u")
+     # Update Package lists
+     execute_apt update
+     ;;
 
-    # shift by one parameter to get the list of packages
-    shift
-    execute_apt "install $@"
-    ;;
-  *)    # Print usage method
-    print_usage
+  "upg" | "U")
+     # Update Package lists and Upgrade Packages
+     execute_apt update && execute_apt upgrade
+     ;;
+
+  "dist" | "d")
+     # Update Package lists and Perform dist-upgrade
+     execute_apt update && execute_apt dist-upgrade
+     ;;
+
+  "rem" | "r")
+     # Remove unwanted packages
+     execute_apt autoremove
+     ;;
+
+  "ins" | "i")
+     # Install package(s) specified after option
+     if [ $# -lt 2 ]
+     then
+       print_usage "ins <package_name>"
+     fi
+     #  packages=`extract_packages "$*"`
+
+     # shift by one parameter to get the list of packages
+     shift
+     execute_apt "install $@"
+     ;;
+
+  *)
+     # Print usage method
+     print_usage
 esac
