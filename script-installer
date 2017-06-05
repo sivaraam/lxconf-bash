@@ -5,7 +5,7 @@
 # TODO
 # 1. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
 
-. ./common-script
+. common-script
 
 IDENTIFIER="-script"
 scripts=`ls | grep -e "$IDENTIFIER"`
