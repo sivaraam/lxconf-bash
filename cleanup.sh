@@ -1,11 +1,11 @@
 # File use for common cleanup operations
 # that affescts multiple files
 
-. common
+. common-script
 
 # Function that wraps sed substitute command. 
 # It gets the following as parameters,
-# regexp - 1 (assumes regexp to be escaped as required)
+# word - 1 (assumes word to be escaped as required)
 # substituition - 2
 # input file - 3 (which is also, effectively, the output)
 #
@@ -25,7 +25,22 @@ sed_substitute() {
   # preserve permissions while also storing sed output
   cp $input_file $output_file
 
-  sed 's/'"$1"'/'"$2"'/' <$input_file >$output_file
+  sed 's/\<'"$1"'\>/'"$2"'/' <$input_file >$output_file
 
   mv $output_file $input_file
 }
+
+
+# Cleanup vim-script
+vim_cleanup() {
+  VIM_CONFIG='vim-config'
+  found=`cat $VIM_CONFIG | grep -o '[a-z]*_size'`
+  for found_instance in $found
+  do
+    changed_instance=`echo $found_instance | tr a-z A-Z`
+    sed_substitute $found_instance $changed_instance $VIM_CONFIG
+  done
+  echo "Vim cleanup success"
+}
+
+vim_cleanup
