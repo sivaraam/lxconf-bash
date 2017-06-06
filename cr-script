@@ -10,7 +10,7 @@
 #     When not declared, asks for location and adds command to export CR_CLIENT_LOCATION to .bashrc
 #
 
-. common-script
+. ./common-script
 
 USERNAME=171037-kaartic
 

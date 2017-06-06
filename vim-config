@@ -4,7 +4,7 @@
 #
 # Usage: {script-name}
 
-. common-script
+. ./common-script
 
 # Recommended  addition to .vimrc
 # Due to presence of defaults.vim
