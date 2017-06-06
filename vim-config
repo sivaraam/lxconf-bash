@@ -35,19 +35,38 @@ tab_to_space_config="set \
                       expandtab
                      "
 
-# TODO vim_version_8 function
+# Function that returns 0 (success) if the version
+# of vim being used is greater than or equal to 8
+vim_version_8() {
+  # parse the otput of `vim --version` to get the version number
+  vim_version=`vim --version | awk '{if (NR == 1) print $5}'`
+  vim_major_version=`echo $vim_version | grep -o '^[0-9]'`
+  
+  if [ vim_major_version -ge 8 ]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
 
 VIMRC="$HOME/.vimrc"
-
-# Debug
-# set -x
 
 # Check if user is ROOT and notify if he is.
 if root_check && [ "$1" != 'root' ]
 then
   error 'You are executing this script as root.\nTo override pass root as first argument.\nAborting'
 else
-  write_to_file $VIMRC "$DEFAULTS_ADDITION"
-  append_to_file $VIMRC "\n$tab_to_space_config"
+  # Check if vim version is greater than 8 as defaults.vim
+  # doesn't exist in previous versions
+  if [ vim_version_8 ]
+  then
+    notify "vim version ${BROWN}>=${NC} 8 detected. Configuring vimrc accordingly."
+    write_to_file $VIMRC "$DEFAULTS_ADDITION"
+    append_to_file $VIMRC "\n$tab_to_space_config"
+  else
+    notify "vim version ${BROWN}<${NC} 8 detected. Configuring vimrc accordingly."
+    write_to_file $VIMRC "\n$tab_to_space_config"
+  fi
   echo "Vim configuration for 'tab to spaces' successful!"
 fi
