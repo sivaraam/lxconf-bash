@@ -10,7 +10,7 @@ require './apt-script'
 
 # Required packages
 dict_packages='dict dict-gcide dict-wn'
-required_packages='git vim gparted openjdk-8-jdk-headless $dict_packages'
+required_packages="git vim gparted openjdk-8-jdk-headless $dict_packages"
 
 echo 'The current list of packages in required list are :'
 for package in $required_packages
