@@ -52,5 +52,5 @@ vim_cleanup() {
     changed_instance=`echo $found_instance | tr a-z A-Z`
     sed_substitute '\<'$found_instance'\>' $changed_instance $VIM_CONFIG
   done
-  echo "Vim cleanup success"
+  echo 'Vim cleanup success'
 }

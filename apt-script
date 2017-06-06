@@ -30,31 +30,31 @@ execute_apt() {
 }
 
 case "$1" in
-  "upd" | "u")
+  'upd' | 'u')
      # Update Package lists
      execute_apt update
      ;;
 
-  "upg" | "U")
+  'upg' | 'U')
      # Update Package lists and Upgrade Packages
      execute_apt update && execute_apt upgrade
      ;;
 
-  "dist" | "d")
+  'dist' | 'd')
      # Update Package lists and Perform dist-upgrade
      execute_apt update && execute_apt dist-upgrade
      ;;
 
-  "rem" | "r")
+  'rem' | 'r')
      # Remove unwanted packages
      execute_apt autoremove
      ;;
 
-  "ins" | "i")
+  'ins' | 'i')
      # Install package(s) specified after option
      if [ $# -lt 2 ]
      then
-       print_usage "ins <package_name>"
+       print_usage 'ins <package_name>'
      fi
      #  packages=`extract_packages "$*"`
 

@@ -11,7 +11,7 @@ BROWN='\033[0;33m'
 ALERT='\033[1;32m'
 NC='\033[0m'
 
-FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
+FUNCTION_ERR_MSG='FATAL. Improper usage of core function'
 
 # ---------- Print functions ------------
 # Function to print error message
@@ -40,7 +40,7 @@ error() {
 # Function to print Usage information
 print_usage() {
   # By default print script parameters
-  SCRIPT_PARAMS="[ upd | upg | dist | rem | ins ]"
+  SCRIPT_PARAMS='[ upd | upg | dist | rem | ins ]'
   usage_msg=${1-$SCRIPT_PARAMS}
 
   script_invocation_name=`basename $0`

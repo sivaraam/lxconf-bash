@@ -54,7 +54,7 @@ do
 
   execute_script_install $dest_file_name $DESTINATION/
 done
-notify "Previous versions of script would have been replaced."
+notify 'Previous versions of script would have been replaced.'
 
 # Debug
 # set -x
@@ -63,9 +63,9 @@ notify "Previous versions of script would have been replaced."
 # command to export it if it's not in PATH
 if ( echo $PATH | grep -o "$DESTINATION" >&/dev/null )
 then
-  notify "Destination folder is in PATH. Not adding it."
+  notify 'Destination folder is in PATH. Not adding it.'
 else
-  add_to_bashrc "\n# Add location of local scripts to PATH"
+  add_to_bashrc '\n# Add location of local scripts to PATH'
   add_to_bashrc 'export PATH=$PATH:'"$DESTINATION"
   notify "Location of local scripts will be added to PATH automatically in 'future' bash sessions."
 fi

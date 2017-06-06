@@ -36,7 +36,7 @@ execute_git() {
 # Debug
 # set -x
 
-notify "Starting global configuration of git"
+notify 'Starting global configuration of git'
 execute_git user.name 'Kaartic Sivaraam'
 execute_git user.email 'kaarticsivaraam91196@gmail.com'
 execute_git help.autoCorrect 2
@@ -44,7 +44,7 @@ execute_git alias.co checkout
 execute_git alias.unstage 'reset HEAD --'
 execute_git alias.st 'status'
 
-DEFAULT_EDITOR="vim"
+DEFAULT_EDITOR='vim'
 # If no editor specified, check for vim and use it
 if [ -z "$1" ]
 then

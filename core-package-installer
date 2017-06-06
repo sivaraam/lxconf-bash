@@ -6,17 +6,17 @@
 . ./common-script
 
 # Use the apt-script to install packages
-require "./apt-script"
+require './apt-script'
 
 # Required packages
-dict_packages="dict dict-gcide dict-wn"
-required_packages="git vim gparted openjdk-8-jdk-headless $dict_packages"
+dict_packages='dict dict-gcide dict-wn'
+required_packages='git vim gparted openjdk-8-jdk-headless $dict_packages'
 
-echo "The current list of packages in required list are :"
+echo 'The current list of packages in required list are :'
 for package in $required_packages
 do
   echo '* '"$package"
 done
-echo "Installing the above packages..."
+echo 'Installing the above packages...'
 
 ./apt-script ins $required_packages
