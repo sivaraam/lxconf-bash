@@ -2,10 +2,8 @@
 # Script that copies all the files ending with "-script" in working directory
 # and copies them to the the "$HOME/.local/bin" directory
 
-# TODO
-# 1. Find way to check if the "$HOME/.local/bin" directory is in PATH and add it to PATH if not
-
-. common-script
+. ./common-script
+. ./script-cleaner
 
 # Create the DESTINATION directory if it doesn't exist
 # Else silent failure
@@ -15,13 +13,28 @@ mkdir -p $DESTINATION
 IDENTIFIER='-script'
 scripts=`ls | grep -e "$IDENTIFIER"`
 
+
+# Fix the sourcing of the file which are sent in first parameter
+# and store them in the file specified by second parameter
+sourcing_fix() {
+ if [ $# -ne 2 ]
+ then
+   error $FUNCTION_ERR_MSG
+ fi
+
+ input_file="$1"
+ output_file="$2"
+
+ sed_substitute '. ./\<common-script\>' '. COMMON-SCRIPT'  $input_file $output_file
+}
+
 execute_script_install() {
   if [ $# -ne 2 ]
   then
     error $FUNCTION_ERROR_MSG
   fi
 
-  cp $1 $2
+  mv $1 $2
   if [ $? -eq 0 ]
   then
     echo -e "${BROWN}$1${NC} sucessfully installed."
@@ -33,14 +46,13 @@ execute_script_install() {
 # Install the scripts
 for script in $scripts
 do
-  if [ "$script" != 'common-script' ]
-  then
-    dest_file_name=`echo $script | tr a-z A-Z`
-  else
-    dest_file_name=$script
-  fi
+  dest_file_name=`echo $script | tr a-z A-Z`
 
-  execute_script_install $script $DESTINATION/$dest_file_name
+  # Does an implicit move of the scripts to their
+  # capitalized name within the same directory
+  sourcing_fix $script $dest_file_name
+
+  execute_script_install $dest_file_name $DESTINATION/
 done
 notify "Previous versions of script would have been replaced."
 
