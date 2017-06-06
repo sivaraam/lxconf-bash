@@ -17,7 +17,7 @@
 execute_apt() {
   if [ $# -lt 1 ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   # check if user is root and execut command accordingly

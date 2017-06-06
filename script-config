@@ -5,6 +5,9 @@
 . ./common-script
 . ./script-cleaner
 
+# Exit status
+EXIT_SCRIPT_INSTALL_FAIL=111
+
 # Create the DESTINATION directory if it doesn't exist
 # Else silent failure
 DESTINATION="$HOME/.local/bin"
@@ -19,7 +22,7 @@ scripts=`ls | grep -e "$IDENTIFIER"`
 sourcing_fix() {
  if [ $# -ne 2 ]
  then
-   error $FUNCTION_ERR_MSG
+   error $FUNCTION_ERR_MSG $EXIT_FATAL
  fi
 
  input_file="$1"
@@ -39,7 +42,7 @@ execute_script_install() {
   then
     echo -e "${BROWN}$1${NC} sucessfully installed."
   else
-    error "Installation of ${RED}$1${NC} failed"
+    error "Installation of ${RED}$1${NC} failed" $EXIT_SCRIPT_INSTALL_FAIL
   fi
 }
 
