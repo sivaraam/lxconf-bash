@@ -1,7 +1,7 @@
 # File use for common cleanup operations
 # that affescts multiple files
 
-. common-script
+. ./common-script
 
 # Function that wraps sed substitute command. 
 # It gets the following as parameters,
@@ -25,7 +25,7 @@ sed_substitute() {
   # preserve permissions while also storing sed output
   cp $input_file $output_file
 
-  sed 's/'"$1"'/'"$2"'/' <$input_file >$output_file
+  sed 's:'"$1"':'"$2"':' <$input_file >$output_file
 
   mv $output_file $input_file
 }
@@ -44,4 +44,12 @@ vim_cleanup() {
   echo "Vim cleanup success"
 }
 
-vim_cleanup
+sourcing_fix() {
+  files=`ls | egrep -v '(cleanup.sh|common-script)'`
+  for file in $files
+  do
+    sed_substitute '. \<common-script\>' '. ./common-script' $file
+  done
+}
+
+# sourcing_fix
