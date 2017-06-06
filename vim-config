@@ -52,6 +52,21 @@ vim_version_8() {
 
 VIMRC="$HOME/.vimrc"
 
+execute_vim() {
+  # Check if .vimrc exists before and
+  # print a warning if it exists
+  if [ -f $VIMRC ]
+  then
+    notify '.vimrc exists. You may want to check that the script does not affect previous configurations'
+  fi
+
+  if [ $VIM_8 ]
+  then
+    append_to_file $VIMRC "$DEFAULTS_ADDITION"
+  fi
+  append_to_file $VIMRC "\n$tab_to_space_config"
+}
+
 # Check if user is ROOT and notify if he is.
 if root_check && [ "$1" != 'root' ]
 then
@@ -62,11 +77,12 @@ else
   if [ vim_version_8 ]
   then
     notify "vim version ${BROWN}>=${NC} 8 detected. Configuring vimrc accordingly."
-    write_to_file $VIMRC "$DEFAULTS_ADDITION"
-    append_to_file $VIMRC "\n$tab_to_space_config"
+    VIM_8=0
+    execute_vim
   else
     notify "vim version ${BROWN}<${NC} 8 detected. Configuring vimrc accordingly."
-    write_to_file $VIMRC "\n$tab_to_space_config"
+    VIM_8=1
+    execute_vim
   fi
   echo "Vim configuration for 'tab to spaces' successful!"
 fi
