@@ -41,7 +41,9 @@ error() {
 print_usage() {
   # By default print script parameters
   SCRIPT_PARAMS='[ upd | upg | dist | rem | ins ]'
-  usage_msg=${1-$SCRIPT_PARAMS}
+
+  # Has pattern of '${variable:-defaultvalue}'
+  usage_msg=${1:-$SCRIPT_PARAMS}
 
   script_invocation_name=`basename $0`
   error "Usage: $script_invocation_name $usage_msg" $ERR_PARAM
