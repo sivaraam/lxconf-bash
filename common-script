@@ -13,6 +13,7 @@ NC='\033[0m'
 
 FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
 
+# ---------- Print functions ------------
 # Function to print error message
 # Exit status passed as asecond argument
 # Default is value of EXIT_FAILURE
@@ -55,6 +56,20 @@ notify() {
   fi
 
   echo -e "${ALERT}ALERT:${NC} $1"
+}
+
+# ---------- END: Print functions ------------
+
+# ---------- Auxiliary functions ------------
+# Function to check if user is ROOT
+root_check() {
+  ROOT_UID=0 # Root has $UID 0.
+  if [ $UID -eq $ROOT_UID ]
+  then
+    return 0
+  else
+    return 1
+  fi
 }
 
 # Require function to test if a required file exists
@@ -107,18 +122,4 @@ add_to_bashrc() {
 
   append_to_file $HOME/.bashrc "$1"
 }
-
-
-# Return values
-IS_ROOT=0
-IS_NOT_ROOT=1
-# Function to check if user is ROOT
-root_check() {
-  ROOT_UID=0 # Root has $UID 0.
-  if [ $UID -eq $ROOT_UID ]
-  then
-    return $IS_ROOT
-  else
-    return $IS_NOT_ROOT
-  fi
-}
+# ---------- END: Auxiliary functions ------------
