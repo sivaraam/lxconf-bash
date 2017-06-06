@@ -9,17 +9,26 @@
 # substituition - 2
 # input file - 3 (which is also, effectively, the output)
 #
+# Optional: output file - 4
+#
 # Effectively, it replaces the text in input file
 # matching the regexp with the substituition text
-# and  stores the output in the same file.
+# and  stores the output in the same file when an output
+# file is not specified
 sed_substitute() {
-  if [ $# -ne 3 ]
+  if [ $# -lt 3 ]
   then
     error $FUNCTION_ERR_MSG
   fi
 
   input_file=$3
-  output_file='.'"$input_file"'~'
+  # TODO Fix the repetitive use of $4
+  if [ -z "$4" ]
+  then
+    output_file='.'"$input_file"'~'
+  else
+    output_file="$4"
+  fi
   
   # Copy input file under a different name to
   # preserve permissions while also storing sed output
@@ -27,9 +36,11 @@ sed_substitute() {
 
   sed 's:'"$1"':'"$2"':' <$input_file >$output_file
 
-  mv $output_file $input_file
+  if [ -z "$4" ]
+  then
+    mv $output_file $input_file
+  fi
 }
-
 
 # Cleanup vim-script
 # Fix the uncapitalized constants
@@ -43,13 +54,3 @@ vim_cleanup() {
   done
   echo "Vim cleanup success"
 }
-
-sourcing_fix() {
-  files=`ls | egrep -v '(cleanup.sh|common-script)'`
-  for file in $files
-  do
-    sed_substitute '. \<common-script\>' '. ./common-script' $file
-  done
-}
-
-# sourcing_fix
