@@ -52,5 +52,17 @@ vim_cleanup() {
     changed_instance=`echo $found_instance | tr a-z A-Z`
     sed_substitute '\<'$found_instance'\>' $changed_instance $VIM_CONFIG
   done
-  echo "Vim cleanup success"
+  echo 'Vim cleanup success'
 }
+
+# Add exit status for error due to misuse of parameters
+fix__exit_status() {
+  files=`ls | grep -v 'script-cleaner'`
+  for file in $files
+  do
+    echo "Processing $file.."
+    sed_substitute 'error $FUNCTION_ERR_MSG' 'error $FUNCTION_ERR_MSG $EXIT_FATAL' $file
+  done
+}
+
+fix__exit_status

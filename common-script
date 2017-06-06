@@ -4,6 +4,7 @@
 EXIT_FAILURE=1
 ERR_PARAM=17
 ERR_REQUIRED_FILE=196
+EXIT_FATAL=100
 
 # Colour Escape codes
 RED='\033[0;31m'
@@ -11,7 +12,7 @@ BROWN='\033[0;33m'
 ALERT='\033[1;32m'
 NC='\033[0m'
 
-FUNCTION_ERR_MSG="FATAL. Improper usage of core function"
+FUNCTION_ERR_MSG='FATAL. Improper usage of core function'
 
 # ---------- Print functions ------------
 # Function to print error message
@@ -40,8 +41,10 @@ error() {
 # Function to print Usage information
 print_usage() {
   # By default print script parameters
-  SCRIPT_PARAMS="[ upd | upg | dist | rem | ins ]"
-  usage_msg=${1-$SCRIPT_PARAMS}
+  SCRIPT_PARAMS='[ upd | upg | dist | rem | ins ]'
+
+  # Has pattern of '${variable:-defaultvalue}'
+  usage_msg=${1:-$SCRIPT_PARAMS}
 
   script_invocation_name=`basename $0`
   error "Usage: $script_invocation_name $usage_msg" $ERR_PARAM
@@ -52,7 +55,7 @@ print_usage() {
 notify() {
   if [ -z "$1" ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   echo -e "${ALERT}ALERT:${NC} $1"
@@ -82,7 +85,7 @@ root_check() {
 require() {
   if [ -z "$1" ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   if [ ! -f $1 ]
@@ -96,7 +99,7 @@ require() {
 write_to_file() {
   if [ $# -ne 2 ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   echo -e $2 > $1
@@ -107,7 +110,7 @@ write_to_file() {
 append_to_file() {
   if [ $# -ne 2 ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   echo -e $2 >> $1
@@ -116,7 +119,7 @@ append_to_file() {
 add_to_bashrc() {
   if [ -z "$1" ]
   then
-    error $FUNCTION_ERR_MSG
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
   append_to_file $HOME/.bashrc "$1"

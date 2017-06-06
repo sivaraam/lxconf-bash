@@ -5,6 +5,9 @@
 . ./common-script
 . ./script-cleaner
 
+# Exit status
+EXIT_SCRIPT_INSTALL_FAIL=111
+
 # Create the DESTINATION directory if it doesn't exist
 # Else silent failure
 DESTINATION="$HOME/.local/bin"
@@ -19,7 +22,7 @@ scripts=`ls | grep -e "$IDENTIFIER"`
 sourcing_fix() {
  if [ $# -ne 2 ]
  then
-   error $FUNCTION_ERR_MSG
+   error $FUNCTION_ERR_MSG $EXIT_FATAL
  fi
 
  input_file="$1"
@@ -39,7 +42,7 @@ execute_script_install() {
   then
     echo -e "${BROWN}$1${NC} sucessfully installed."
   else
-    error "Installation of ${RED}$1${NC} failed"
+    error "Installation of ${RED}$1${NC} failed" $EXIT_SCRIPT_INSTALL_FAIL
   fi
 }
 
@@ -54,7 +57,7 @@ do
 
   execute_script_install $dest_file_name $DESTINATION/
 done
-notify "Previous versions of script would have been replaced."
+notify 'Previous versions of script would have been replaced.'
 
 # Debug
 # set -x
@@ -63,9 +66,9 @@ notify "Previous versions of script would have been replaced."
 # command to export it if it's not in PATH
 if ( echo $PATH | grep -o "$DESTINATION" >&/dev/null )
 then
-  notify "Destination folder is in PATH. Not adding it."
+  notify 'Destination folder is in PATH. Not adding it.'
 else
-  add_to_bashrc "\n# Add location of local scripts to PATH"
+  add_to_bashrc '\n# Add location of local scripts to PATH'
   add_to_bashrc 'export PATH=$PATH:'"$DESTINATION"
   notify "Location of local scripts will be added to PATH automatically in 'future' bash sessions."
 fi
