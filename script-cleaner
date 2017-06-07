@@ -65,4 +65,4 @@ fix__exit_status() {
   done
 }
 
-fix__exit_status
+# fix__exit_status
