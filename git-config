@@ -43,6 +43,9 @@ execute_git help.autoCorrect 2
 execute_git alias.co checkout
 execute_git alias.unstage 'reset HEAD --'
 execute_git alias.st 'status'
+execute_git alias.b 'branch'
+execute_git alias.ca 'commit --amend'
+execute_git alias.check 'diff --check'
 
 DEFAULT_EDITOR='vim'
 # If no editor specified, check for vim and use it
@@ -64,4 +67,5 @@ else
   error "$PREF_EDITOR is not present. Set another editor by passing a parameter. Aborting." $ERR_EDITOR_MISS
 fi
 
+execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
