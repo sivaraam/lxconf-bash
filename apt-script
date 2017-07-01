@@ -54,7 +54,7 @@ case "$1" in
      # Install package(s) specified after option
      if [ $# -lt 2 ]
      then
-       print_usage 'ins <package_name>'
+       print_usage 'ins <package_name(s)>'
      fi
      #  packages=`extract_packages "$*"`
 
