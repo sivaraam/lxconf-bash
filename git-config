@@ -69,3 +69,4 @@ fi
 
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
+execute_git alias.send-git 'send-email --cc=git@vger.kernel.org --suppress-cc=self --to=gitster@pobox.com'
