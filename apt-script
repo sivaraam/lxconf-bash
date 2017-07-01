@@ -45,7 +45,7 @@ case "$1" in
      execute_apt update && execute_apt dist-upgrade
      ;;
 
-  'rem' | 'r')
+  'arem' | 'a')
      # Remove unwanted packages
      execute_apt autoremove
      ;;
@@ -63,6 +63,27 @@ case "$1" in
      execute_apt "install $@"
      ;;
 
+  'pur' | 'p')
+     # Purge the package specified
+     if [ $# -lt 2 ]
+     then
+       print_usage 'pur <package_name(s)>'
+     fi
+
+     shift
+     execute_apt "purge $@"
+     ;;
+
+  'rem' | 'r')
+    # Remove specified packages
+    if [ $# -lt 2 ]
+    then
+      print_usage 'rem <package_name(s)>'
+    fi
+
+    shift
+    execute_apt "remove $@"
+    ;;
   *)
      # Print usage method
      print_usage
