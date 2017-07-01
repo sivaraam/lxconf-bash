@@ -86,5 +86,5 @@ case "$1" in
     ;;
   *)
      # Print usage method
-     print_usage
+     print_usage '[ arem | dist | ins | pur | rem | upd | upg ]'
 esac

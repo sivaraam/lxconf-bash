@@ -39,15 +39,15 @@ error() {
 
 
 # Function to print Usage information
+# Takes the message as first parameter
 print_usage() {
-  # By default print script parameters
-  SCRIPT_PARAMS='[ upd | upg | dist | rem | ins ]'
-
-  # Has pattern of '${variable:-defaultvalue}'
-  usage_msg=${1:-$SCRIPT_PARAMS}
+  if [ $# -lt 1 ]
+  then
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
+  fi
 
   script_invocation_name=`basename $0`
-  error "Usage: $script_invocation_name $usage_msg" $ERR_PARAM
+  error "Usage: $script_invocation_name $1" $ERR_PARAM
 }
 
 # Function that notifies an user about a message. Notification is done in different colour
