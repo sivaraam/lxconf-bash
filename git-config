@@ -45,6 +45,7 @@ execute_git alias.unstage 'reset HEAD --'
 execute_git alias.st 'status'
 execute_git alias.b 'branch'
 execute_git alias.ca 'commit --amend'
+execute_git alias.c 'commit -v'
 execute_git alias.check 'diff --check'
 
 DEFAULT_EDITOR='vim'
@@ -69,4 +70,5 @@ fi
 
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
-execute_git alias.send-git 'send-email --cc=git@vger.kernel.org --suppress-cc=self --to=gitster@pobox.com'
+execute_git alias.send-git 'send-email --cc=git@vger.kernel.org --suppress-cc=self --to=gitster@pobox.com --compose'
+execute_git diff.indentHeuristic true # use the experimental heuristic
