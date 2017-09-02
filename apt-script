@@ -29,6 +29,11 @@ execute_apt() {
   fi
 }
 
+if [ "$1" == "" ]
+then
+  print_usage '[ arem | dist | ins | pur | rem | upd | upg ]'
+fi
+
 case "$1" in
   'upd' | 'u')
      # Update Package lists
@@ -85,6 +90,7 @@ case "$1" in
     execute_apt "remove $@"
     ;;
   *)
-     # Print usage method
-     print_usage '[ arem | dist | ins | pur | rem | upd | upg ]'
+    # Don't be too restrictive just pass in the other parameter directly
+    # This would allow the script to act as an alias
+    execute_apt "$@"
 esac
