@@ -36,10 +36,35 @@ execute_git() {
 # Debug
 # set -x
 
+configure_editor () {
+  DEFAULT_EDITOR='vim'
+  # If no editor specified, check for vim and use it
+  if [ -z "$1" ]
+  then
+    notify "No editor specified. Using $DEFAULT_EDITOR."
+    PREF_EDITOR=$DEFAULT_EDITOR
+  else
+    notify "Using $1 as editor"
+    PREF_EDITOR=$1
+  fi
+
+  # Check if editor is present and execute config
+  # command only if it's present
+  if ( command -v $PREF_EDITOR >/dev/null 2>&1 )
+  then
+    execute_git core.editor $PREF_EDITOR
+  else
+    error "$PREF_EDITOR is not present. Set another editor by passing a parameter. Aborting." $ERR_EDITOR_MISS
+  fi
+}
+
 notify 'Starting global configuration of git'
+
+# User configuration
 execute_git user.name 'Kaartic Sivaraam'
 execute_git user.email 'kaarticsivaraam91196@gmail.com'
-execute_git help.autoCorrect 2
+
+# Short forms
 execute_git alias.co checkout
 execute_git alias.unstage 'reset HEAD --'
 execute_git alias.st 'status'
@@ -48,26 +73,9 @@ execute_git alias.ca 'commit --amend'
 execute_git alias.c 'commit -v'
 execute_git alias.check 'diff --check'
 
-DEFAULT_EDITOR='vim'
-# If no editor specified, check for vim and use it
-if [ -z "$1" ]
-then
-  notify "No editor specified. Using $DEFAULT_EDITOR."
-  PREF_EDITOR=$DEFAULT_EDITOR
-else
-  notify "Using $1 as editor"
-  PREF_EDITOR=$1
-fi
-
-# Check if editor is present and execute config
-# command only if it's present
-if ( command -v $PREF_EDITOR >/dev/null 2>&1 )
-then
-  execute_git core.editor $PREF_EDITOR
-else
-  error "$PREF_EDITOR is not present. Set another editor by passing a parameter. Aborting." $ERR_EDITOR_MISS
-fi
-
+# Miscellaneous
+configure_editor
+execute_git help.autoCorrect 2
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
 execute_git alias.send-git 'send-email --cc=git@vger.kernel.org --suppress-cc=self --to=gitster@pobox.com --compose'
