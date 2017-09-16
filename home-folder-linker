@@ -1,0 +1,41 @@
+#! /bin/bash
+# Link the common folders present in another mount
+# Optionally takes the parent folder of common folders as first argument
+# Note: Link is created only if the folder is not present
+# or can be removed as it has no contents
+
+. ./common-script
+
+common_folders='Desktop Documents Downloads Music Pictures Videos'
+
+if [ "$1" != "" ] & [ -e "$1" ]
+then
+  COMMON_FOLDER_PARENT="$1"
+else
+  COMMON_FOLDER_PARENT="/mnt/Miscellaneous"
+fi
+
+create_link () {
+  # See if folder exists and if does can be removed
+  # without losing contents
+  if [ -d "$1" ]
+  then
+    rmdir "$1"
+  fi
+
+  if [ $? == 0 ]
+  then
+    # rmdir would fail if the folder has contents
+    # so, if we reach here we are safe to create the link
+    echo "Creating link for '$1'"
+    ln -s "$COMMON_FOLDER_PARENT/$1"
+  else
+    notify "Not creating link for '$1'"
+  fi
+}
+
+cd $HOME
+for common_folder in $common_folders
+do
+  create_link $common_folder
+done

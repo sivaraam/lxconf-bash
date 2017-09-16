@@ -1,0 +1,2 @@
+# The following gives packages that can be used in apt-get (or) dpkg commands
+cat 'log of an opertion' | perl -pe 's/ \(.*?\)//g; s/,//g; s/^Install: //'
