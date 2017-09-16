@@ -80,4 +80,5 @@ execute_git credential.helper cache # Currently use default timeout (--timeout 9
 execute_git push.default simple  # Embrace new git push behaviour
 execute_git alias.send-git 'send-email --cc=git@vger.kernel.org --suppress-cc=self --to=gitster@pobox.com --compose'
 execute_git alias.complete-send-git=send-email '--to=gitster@pobox.com --cc=git@vger.kernel.org --suppress-cc=self --compose'
+execute_git alias.refer-commit "show -s --date=short --pretty='format:%h (%s, %ad)'"
 execute_git diff.indentHeuristic true # use the experimental heuristic
