@@ -62,7 +62,7 @@ notify 'Starting global configuration of git'
 
 # User configuration
 execute_git user.name 'Kaartic Sivaraam'
-execute_git user.email 'kaarticsivaraam@gmail.com'
+execute_git user.email 'kaartic.sivaraam@gmail.com'
 
 # Short forms
 execute_git alias.co checkout
