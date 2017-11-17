@@ -74,7 +74,7 @@ execute_git alias.c 'commit -v'
 execute_git alias.check 'diff --check'
 
 # Miscellaneous
-configure_editor
+configure_editor "$1"
 # execute_git help.autoCorrect 2
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
