@@ -27,9 +27,9 @@ execute_git() {
 
   if [ $? -ne 0 ]
   then
-    error "Cofiguration of ${BROWN}$1${NC} with ${RED}$2${NC} failed!." $ERR_CONFIG_FAIL
+    error "Cofiguration of ${RED}$1${NC} with ${RED}$2${NC} failed!." $ERR_CONFIG_FAIL
   else
-    echo -e "Configuration of ${BROWN}$1${NC} with ${RED}$2${NC} successful"
+    echo -e "Configuration of ${GREEN}$1${NC} with ${GREEN}$2${NC} successful"
   fi
 }
 

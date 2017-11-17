@@ -9,7 +9,7 @@ EXIT_FATAL=100
 # Colour Escape codes
 RED='\033[0;31m'
 BROWN='\033[0;33m'
-ALERT='\033[1;32m'
+GREEN='\033[1;32m'
 NC='\033[0m'
 
 FUNCTION_ERR_MSG='FATAL. Improper usage of core function'
@@ -25,7 +25,7 @@ error() {
   then
     echo $FUNCTION_ERR_MSG
   else
-    echo -e $1
+    echo -e "${RED}ERROR:${NC} $1"
   fi
 
   exec >&- # close stdout
@@ -58,7 +58,7 @@ notify() {
     error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
-  echo -e "${ALERT}ALERT:${NC} $1"
+  echo -e "${BROWN}ALERT:${NC} $1"
 }
 
 # ---------- END: Print functions ------------
