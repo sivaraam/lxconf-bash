@@ -8,15 +8,29 @@
 # Use the apt-script to install packages
 require './apt-script'
 
-# Required packages
 dict_packages='dict dict-gcide dict-wn'
-required_packages="git zeal vim gparted openjdk-8-jdk-headless $dict_packages redshift tlp pm-utils g++"
+essential_packages="$dict_packages git vim zeal gparted redshift tlp pm-utils g++"
+optional_packages='openjdk-8-jdk-headless xserver-xorg-input-libinput clang-4.0'
 
-echo 'The current list of packages in required list are :'
-for package in $required_packages
+echo 'The current list of ESSENTIAL packages are:'
+for package in $essential_packages
 do
   echo '* '"$package"
 done
-echo 'Installing the above packages...'
 
-./apt-script ins $required_packages
+echo
+echo 'The current list of OPTIONAL packages are:'
+for package in $optional_packages
+do
+  echo '* '"$package"
+done
+
+echo
+if [ "$1" == 'opt' ] || [ "$1" == "o" ]
+then
+  notify 'Installing both essential and optional packages...'
+  ./apt-script ins $essential_packages $optional_packages
+else
+  notify 'Installing ONLY the essential packages...'
+  ./apt-script ins $essential_packages
+fi
