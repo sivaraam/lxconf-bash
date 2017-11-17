@@ -1,7 +1,9 @@
 #! /bin/bash
 # Script to ease common apt commands
 #
-# Usage: {script-name} [ upd | upg | dist | rem | ins <package-name> ]
+# Usage: {script-name} [ upd | upg | dist | arem ]
+#        {script-name} [ ins | pur | rem ]  <package-name>...
+#        {script-name} ...
 #
 # Short forms
 #   1. upd  - u
