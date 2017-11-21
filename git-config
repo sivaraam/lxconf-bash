@@ -13,6 +13,10 @@
 ERR_CONFIG_FAIL=136
 ERR_EDITOR_MISS=154
 
+# Email addresses
+MAINTAINER="Junio C Hamano <gitster@pobox.com>"
+MAILING_LIST="Git mailing list <git@vger.kernel.org>"
+
 # Function for global git configuration
 # Assumed that
 #  $1 - key
@@ -78,7 +82,7 @@ configure_editor "$1"
 # execute_git help.autoCorrect 2
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
-execute_git alias.send-git 'send-email --to=git@vger.kernel.org --suppress-cc=self --compose'
-execute_git alias.complete-send-git 'send-email --to=gitster@pobox.com --cc=git@vger.kernel.org --suppress-cc=self --compose'
+execute_git alias.send-git "send-email --to='$MAILING_LIST' --suppress-cc=self --compose"
+execute_git alias.complete-send-git "send-email --to='$MAINTAINER' --cc='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.refer-commit "show -s --date=short --pretty='format:%h (%s, %ad)'"
 # execute_git diff.indentHeuristic true # use the experimental heuristic
