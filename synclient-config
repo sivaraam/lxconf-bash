@@ -7,4 +7,4 @@ TapButton3=3
 VertScrollDelta=-46
 
 # Package in which 'synclient' is available
-xserver-xorg-input-libinput
+xserver-xorg-input-synaptics
