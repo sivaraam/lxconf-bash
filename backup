@@ -38,7 +38,7 @@ ZIP_IGNORE_FILE='.exclude.lst'
 # tar cf - . | zip -Z bzip2 backup -
 
 # Avoid including ignores if requested
-if test -z "$NO_IGNORES"
+if test -n "$USE_IGNORES"
 then
   other_opts="-x@${ZIP_IGNORE_FILE} "
 fi
