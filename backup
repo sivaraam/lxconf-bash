@@ -1,9 +1,20 @@
 #! /bin/bash
 # Script that is to be used for generating backups
 # and updating the backup of current directory
+#
+# Customizable environment variables
+#   DEST - the destination archive including archive name
+#          (defaults to custom used media device)
+#
+#   In case the archive is an external media you could
+#   use the variable below to specify the archive,
+#   MEDIA_NAME   - name of the media device
+#                  (defaults to 'unique')
+#   ARCHIVE_NAME - the name of the archive in the media device
+#                  (defaults to 'Library(bzipped, backup).zip')
+#
+#   USE_IGNORES  - use '.exclude.lst' as ignore file for zip
 
-# For now, define destination to external media
-# if DEST isn't defined
 if test -z "$DEST"
 then
   # Define media name to be the name of the device
@@ -24,7 +35,6 @@ then
 fi
 
 EXISTING_OR_NEW_BACKUP="$DEST"
-
 TAR_IGNORE_FILE='.ignore.lst'
 ZIP_IGNORE_FILE='.exclude.lst'
 
