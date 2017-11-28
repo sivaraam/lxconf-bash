@@ -1,0 +1,47 @@
+#! /bin/bash
+# Script that is to be used for generating backups
+# and updating the backup of current directory
+
+# For now, define destination to external media
+# if DEST isn't defined
+if test -z "$DEST"
+then
+  # Define media name to be the name of the device
+  # I oftne use unless it's defined
+  if test -z "$MEDIA_NAME"
+  then
+    MEDIA_NAME='unique'
+  fi
+
+  # Define archive name to be the default name that
+  # used initially unless it's defined
+  if test -z "$ARCHIVE_NAME"
+  then
+    ARCHIVE_NAME='Library(bzipped, backup).zip'
+  fi
+
+  DEST="/media/${USER}/${MEDIA_NAME}/${ARCHIVE_NAME}"
+fi
+
+EXISTING_OR_NEW_BACKUP="$DEST"
+
+TAR_IGNORE_FILE='.ignore.lst'
+ZIP_IGNORE_FILE='.exclude.lst'
+
+# Creation works but 'updation' seems to add files that
+# are ignored
+#
+# Updation is designed to not work with 'compression'
+# tar cvf ${EXISTING_OR_NEW_BACKUP} --exclude-ignore='.ignore.lst' .
+
+# Cannot be used to update
+# tar cf - . | zip -Z bzip2 backup -
+
+# Avoid including ignores if requested
+if test -z "$NO_IGNORES"
+then
+  other_opts="-x@${ZIP_IGNORE_FILE} "
+fi
+
+# Creation and updation works with compression fo 'zip'
+zip -v -u $other_opts -Z bzip2 "${EXISTING_OR_NEW_BACKUP}" -r .
