@@ -18,19 +18,40 @@ do
   echo '* '"$package"
 done
 
-echo
-echo 'The current list of OPTIONAL packages are:'
+packages_to_install="$essential_packages"
+
+# Get the prefernece for optional packages
+echo # Kept for new-line (side-effect)
+echo 'Choose the optional packages to install:'
+
 for package in $optional_packages
+do
+  while true
+  do
+    echo -n "Do you want to install '$package' [y/n]: "
+    read yn
+    case $yn in
+      [Yy]*)
+        optional_packages_to_install+=" $package"
+        break
+        ;;
+      [Nn]*)
+        break
+        ;;
+      *)
+        echo 'Please answer yes or no.'
+        ;;
+    esac
+  done
+done
+
+packages_to_install+="$optional_packages_to_install"
+
+echo # Kept for new line (side-effect)
+notify 'Installing the following packages:'
+for package in $packages_to_install
 do
   echo '* '"$package"
 done
 
-echo
-if [ "$1" == 'opt' ] || [ "$1" == "o" ]
-then
-  notify 'Installing both essential and optional packages...'
-  ./apt-script ins $essential_packages $optional_packages
-else
-  notify 'Installing ONLY the essential packages...'
-  ./apt-script ins $essential_packages
-fi
+./apt-script ins $packages_to_install
