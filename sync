@@ -1,11 +1,13 @@
 #! /bin/bash
 #
-# Sync the Git repos with their upstreams
+# Sync the backup Git repos with their upstreams.
 #
 # The upstream is generally assumed to be the repo in which this
 # script is placed.
 #
-# current state of the 
+# It is assumed that it is always possible to fast-forward the history of
+# the "backup" repo. IOW, it is assumed that it is only a "backup" of the upstream
+# and not a fork in which changes are made.
 
 . ./common-script
 
@@ -28,4 +30,3 @@ do
 		notify "'${backup[i]}' not found"
 	fi
 done
-
