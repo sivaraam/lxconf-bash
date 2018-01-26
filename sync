@@ -1,0 +1,31 @@
+#! /bin/bash
+#
+# Sync the Git repos with their upstreams
+#
+# The upstream is generally assumed to be the repo in which this
+# script is placed.
+#
+# current state of the 
+
+. ./common-script
+
+# Specify the external repos as a shell array and remove the
+# following line.
+
+# Example,
+# backup[1]='/media/unique/unique/Documents'
+# backup[2]='/media/unique/disk/Documents'
+# backup[3]='/media/unique/Memory Card/Documents'
+# backup_num=3
+
+for i in `seq $backup_num`
+do
+	if test -d "${backup[i]}"
+	then
+		notify "Updating '${backup[i]}'"
+		(cd "${backup[i]}" && git pull) || error "Could not sync backups !!!"
+	else
+		notify "'${backup[i]}' not found"
+	fi
+done
+
