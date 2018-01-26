@@ -13,6 +13,7 @@
 
 # Specify the external repos as a shell array and remove the
 # following line.
+error "Backup repos not specified"
 
 # Example,
 # backup[1]='/media/unique/unique/Documents'
