@@ -16,7 +16,7 @@ FUNCTION_ERR_MSG='FATAL. Improper usage of core function'
 
 # ---------- Print functions ------------
 # Function to print error message
-# Exit status passed as asecond argument
+# Exit status passed as second argument
 # Default is value of EXIT_FAILURE
 error() {
   exec >&2 # switch stdout to stderr
@@ -50,8 +50,8 @@ print_usage() {
   error "Usage: $script_invocation_name $1" $ERR_PARAM
 }
 
-# Function that notifies an user about a message. Notification is done in different colour
-# for colour enabled shells.
+# Function that notifies an user about a message.
+# Notification is done in colour for colour enabled shells.
 notify() {
   if [ -z "$1" ]
   then
