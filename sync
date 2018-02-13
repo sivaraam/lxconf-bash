@@ -9,7 +9,8 @@
 # the "backup" repo. IOW, it is assumed that it is only a "backup" of the upstream
 # and not a fork in which changes are made.
 
-. ./common-script
+# Can be installed using lxconf-bash/script-config
+. COMMON-SCRIPT
 
 # Specify the external repos as a shell array and remove the
 # following line.
