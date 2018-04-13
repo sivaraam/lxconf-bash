@@ -15,6 +15,8 @@
 #
 #   USE_IGNORES  - use '.exclude.lst' as ignore file for zip
 
+# For now, define destination to external media
+# if DEST isn't defined
 if test -z "$DEST"
 then
   # Define media name to be the name of the device
