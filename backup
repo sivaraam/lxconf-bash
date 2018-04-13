@@ -20,7 +20,7 @@
 if test -z "$DEST"
 then
   # Define media name to be the name of the device
-  # I oftne use unless it's defined
+  # I often use unless it's defined
   if test -z "$MEDIA_NAME"
   then
     MEDIA_NAME='unique'
