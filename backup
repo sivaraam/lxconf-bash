@@ -36,7 +36,8 @@ then
   DEST="/media/${USER}/${MEDIA_NAME}/${ARCHIVE_NAME}"
 fi
 
-EXISTING_OR_NEW_BACKUP="$DEST"
+# EXISTING_OR_NEW_BACKUP="$DEST"
+
 TAR_IGNORE_FILE='.ignore.lst'
 ZIP_IGNORE_FILE='.exclude.lst'
 
