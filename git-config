@@ -76,6 +76,7 @@ execute_git alias.b 'branch'
 execute_git alias.ca 'commit --amend'
 execute_git alias.c 'commit -v'
 execute_git alias.check 'diff --check'
+execute_git alias.dc 'diff --cached'
 
 # Miscellaneous
 configure_editor "$1"
@@ -85,4 +86,5 @@ execute_git push.default simple  # Embrace new git push behaviour
 execute_git alias.send-git "send-email --to='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.complete-send-git "send-email --to='$MAINTAINER' --cc='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.refer-commit "show -s --date=short --pretty='format:%h (%s, %ad)'"
+execute_git grep.lineNumber true
 # execute_git diff.indentHeuristic true # use the experimental heuristic
