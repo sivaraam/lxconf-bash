@@ -37,6 +37,7 @@ then
 fi
 
 # EXISTING_OR_NEW_BACKUP="$DEST"
+AUXILIARY_DEST="./backup.zip"
 
 TAR_IGNORE_FILE='.ignore.lst'
 ZIP_IGNORE_FILE='.exclude.lst'
@@ -56,5 +57,9 @@ then
   other_opts="-x@${ZIP_IGNORE_FILE} "
 fi
 
-# Creation and updation works with compression fo 'zip'
-zip -v -u $other_opts -Z bzip2 "${EXISTING_OR_NEW_BACKUP}" -r .
+# Creation and updation works with compression of 'zip'
+if (zip -v -u $other_opts -Z bzip2 "${AUXILIARY_DEST}" -r .)
+then
+	# Move auxiliary file to destination
+	cp "${AUXILIARY_DEST}" "${DEST}"
+fi
