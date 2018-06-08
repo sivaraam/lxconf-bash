@@ -10,7 +10,7 @@ require './apt-script'
 
 dict_packages='dict dict-gcide dict-wn'
 essential_packages="$dict_packages git vim zeal gparted redshift tlp pm-utils g++"
-optional_packages='openjdk-8-jdk-headless clang-4.0 vlc chromium ri pidgin git-email'
+optional_packages='openjdk-9-jdk-headless clang-4.0 vlc chromium ri pidgin git-email'
 
 echo 'The current list of ESSENTIAL packages are:'
 for package in $essential_packages
