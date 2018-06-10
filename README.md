@@ -1,9 +1,13 @@
-lxconf: linux laptop configuration scripts
+lxconf
 ---
 
 These scripts were crafted for custom use and might
-not be quite useful by themselves. You may consider
-it to be another example (pet) shell project.
+not be quite useful by themselves. They try to automate
+the setting up of a new laptop a little by:
 
-In case you find anything to be brought to notice,
-[bring it up](https://github.com/sivaraam/lxconf/issues/new).
+* Helping with the installation of the packages
+* Configuring some tools
+* Installing some helper scripts
+
+They also contain some other scripts which are used less frequently.
+In case you find anything to be brought to notice in the issues page.
