@@ -3,15 +3,22 @@
 #
 # Usage: {script-name}
 
-. ./common-script
+# source: https://stackoverflow.com/a/246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-# Use the apt-script to install packages
-require './apt-script'
+. $DIR/../lib/common-script
 
 dict_packages='dict dict-gcide dict-wn'
 essential_packages="$dict_packages git vim zeal gparted redshift tlp pm-utils g++ keepassxc"
 optional_packages='openjdk-9-jdk-headless clang-4.0 vlc chromium ri pidgin git-email homebank lifeograph'
 
+info 'Package installation initiated ..'
 echo 'The current list of ESSENTIAL packages are:'
 for package in $essential_packages
 do
@@ -54,4 +61,12 @@ do
   echo '* '"$package"
 done
 
-./apt-script ins $packages_to_install
+# check if user is root and execut command accordingly
+if root_check
+then
+  apt-get install $packages_to_install
+else
+  sudo apt-get install $packages_to_install
+fi
+
+info 'Package installation terminated.'

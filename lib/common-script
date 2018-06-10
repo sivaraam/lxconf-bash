@@ -61,6 +61,17 @@ notify() {
   echo -e "${BROWN}ALERT:${NC} $1"
 }
 
+
+# Function that informs user about an event.
+info() {
+  if [ -z "$1" ]
+  then
+    error $FUNCTION_ERR_MSG $EXIT_FATAL
+  fi
+
+  echo -e "${GREEN}INFO:${NC} $1"
+}
+
 # ---------- END: Print functions ------------
 
 # ---------- Auxiliary functions ------------
@@ -123,5 +134,66 @@ add_to_bashrc() {
   fi
 
   append_to_file $HOME/.bashrc "$1"
+}
+
+# Function that wraps sed substitute command.
+# It gets the following as parameters,
+# regexp - 1 (assumes regexp to be escaped as required)
+# substitution - 2
+# input file - 3 (which is also, effectively, the output)
+#
+# Optional: output file - 4
+#
+# Effectively, it replaces the text in input file
+# matching the regexp with the substitution text
+# and  stores the output in the same file when an output
+# file is not specified
+sed_substitute() {
+  if [ $# -lt 3 ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  input_file=$3
+  # TODO Fix the repetitive use of $4
+  if [ -z "$4" ]
+  then
+    output_file='.'"$input_file"'~'
+  else
+    output_file="$4"
+  fi
+
+  # Copy input file under a different name to
+  # preserve permissions while also storing sed output
+  cp $input_file $output_file
+
+  sed 's:'"$1"':'"$2"':' <$input_file >$output_file
+
+  if [ -z "$4" ]
+  then
+    mv $output_file $input_file
+  fi
+}
+
+
+# Function that creates a list of files in a directory.
+# Converts each file name to their full paths
+# In the end returns a space-separated string containing
+# the canonical paths of files in it.
+get_files_with_path () {
+  if [ $# -ne 1 ]
+  then
+    error $FUNCTION_ERR_MSG
+  fi
+
+  directory="$1"
+  files=$(ls $directory)
+
+  for file in $files
+  do
+    prefixed_files="$prefixed_files $directory/$file"
+  done
+
+  echo $prefixed_files
 }
 # ---------- END: Auxiliary functions ------------

@@ -22,7 +22,7 @@ execute_apt() {
     error $FUNCTION_ERR_MSG $EXIT_FATAL
   fi
 
-  # check if user is root and execut command accordingly
+  # check if user is root and execute command accordingly
   if root_check
   then
     apt-get $@

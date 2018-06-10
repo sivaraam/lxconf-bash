@@ -2,20 +2,21 @@
 # Script that copies all the files ending with "-script" in working directory
 # and copies them to the the "$HOME/.local/bin" directory
 
-. ./common-script
-. ./script-cleaner
+# source: https://stackoverflow.com/a/246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-# Exit status
+. $DIR/../lib/common-script
+
 EXIT_SCRIPT_INSTALL_FAIL=111
-
-# Create the DESTINATION directory if it doesn't exist
-# Else silent failure
 DESTINATION="$HOME/.local/bin"
-mkdir -p $DESTINATION
-
-IDENTIFIER='-script'
-scripts=`ls | grep -e "$IDENTIFIER"`
-
+LIB_DIR="$DIR/../lib"
+SCRIPTS_DIR="$DIR/../scripts"
 
 # Fix the sourcing of the file which are sent in first parameter
 # and store them in the file specified by second parameter
@@ -46,10 +47,23 @@ execute_script_install() {
   fi
 }
 
+info 'Custom utility scripts installation initiated ..'
+# Create the DESTINATION directory if it doesn't exist
+# Else silent failure
+mkdir -p $DESTINATION
+
+scripts=`get_files_with_path $LIB_DIR`
+scripts="$scripts "`get_files_with_path $SCRIPTS_DIR`
+
+if test -z "$scripts"
+then
+  error "No scripts found to install."
+fi
+
 # Install the scripts
 for script in $scripts
 do
-  dest_file_name=`echo $script | tr a-z A-Z`
+  dest_file_name=`basename $script | tr a-z A-Z`
 
   # Does an implicit move of the scripts to their
   # capitalized name within the same directory
@@ -57,18 +71,18 @@ do
 
   execute_script_install $dest_file_name $DESTINATION/
 done
-notify 'Previous versions of script would have been replaced.'
 
-# Debug
-# set -x
+notify 'Previous versions of script would have been replaced.'
 
 # Check if destination is in PATH and add an export
 # command to export it if it's not in PATH
 if ( echo $PATH | grep -o "$DESTINATION" >&/dev/null )
 then
-  notify 'Destination folder is in PATH. Not adding it.'
+  info 'Destination folder is in PATH. Not adding it.'
 else
   add_to_bashrc '\n# Add location of local scripts to PATH'
   add_to_bashrc 'export PATH=$PATH:'"$DESTINATION"
-  notify "Location of local scripts will be added to PATH automatically in 'future' bash sessions."
+  info "Location of local scripts will be added to PATH automatically in 'future' bash sessions."
 fi
+
+info 'Custom utility scripts installation terminated.'
