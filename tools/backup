@@ -42,10 +42,10 @@ AUXILIARY_DEST="./backup.zip"
 TAR_IGNORE_FILE='.ignore.lst'
 ZIP_IGNORE_FILE='.exclude.lst'
 
-# Creation works but 'updation' seems to add files that
+# Creation works but 'update' seems to add files that
 # are ignored
 #
-# Updation is designed to not work with 'compression'
+# Update is designed to not work with 'compression'
 # tar cvf ${EXISTING_OR_NEW_BACKUP} --exclude-ignore='.ignore.lst' .
 
 # Cannot be used to update
@@ -57,7 +57,7 @@ then
   other_opts="-x@${ZIP_IGNORE_FILE} "
 fi
 
-# Creation and updation works with compression of 'zip'
+# Creation and update works with compression of 'zip'
 if (zip -v -u $other_opts -Z bzip2 "${AUXILIARY_DEST}" -r .)
 then
 	# Move auxiliary file to destination

@@ -1,6 +1,6 @@
 #! /bin/bash
 # Script that copies all the files ending with "-script" in working directory
-# and copies them to the the "$HOME/.local/bin" directory
+# and copies them to the "$HOME/.local/bin" directory
 
 # source: https://stackoverflow.com/a/246128
 SOURCE="${BASH_SOURCE[0]}"
@@ -41,7 +41,7 @@ execute_script_install() {
   mv $1 $2
   if [ $? -eq 0 ]
   then
-    echo -e "${BROWN}$1${NC} sucessfully installed."
+    echo -e "${BROWN}$1${NC} successfully installed."
   else
     error "Installation of ${RED}$1${NC} failed" $EXIT_SCRIPT_INSTALL_FAIL
   fi
