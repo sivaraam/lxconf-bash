@@ -23,8 +23,8 @@ ERR_CONFIG_FAIL=136
 ERR_EDITOR_MISS=154
 
 # Email addresses
-MAINTAINER="Junio C Hamano <gitster@pobox.com>"
-MAILING_LIST="Git mailing list <git@vger.kernel.org>"
+MAINTAINER='Junio C Hamano <gitster@pobox.com>'
+MAILING_LIST='Git mailing list <git@vger.kernel.org>'
 
 # Function for global git configuration
 # Assumed that
