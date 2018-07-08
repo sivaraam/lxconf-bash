@@ -95,7 +95,11 @@ execute_git push.default simple  # Embrace new git push behaviour
 execute_git alias.send-git "send-email --to='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.complete-send-git "send-email --to='$MAINTAINER' --cc='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.refer-commit "show -s --date=short --pretty='format:%h (%s, %ad)'"
+# Introduce an alias for diff-so-fancy
+# https://github.com/so-fancy/diff-so-fancy
+execute_git alias.dic '!git diff --color | diff-so-fancy'
 execute_git grep.lineNumber true
 # execute_git diff.indentHeuristic true # use the experimental heuristic
+
 
 info 'Global configuration of Git terminated.'
