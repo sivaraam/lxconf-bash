@@ -1,5 +1,5 @@
 #! /bin/bash
-# Script that installs essential packages through apt-get package manager
+# Script that installs essential packages through apt package manager
 #
 # Usage: {script-name}
 
@@ -64,9 +64,15 @@ done
 # check if user is root and execute command accordingly
 if root_check
 then
-  apt-get install $packages_to_install
+  for package in $packages_to_install
+  do
+    apt install --asume-yes $package
+  done
 else
-  sudo apt-get install $packages_to_install
+  for packate in $packages_to_install
+  do
+    sudo apt install --assume-yes $package
+  done
 fi
 
 info 'Package installation terminated.'
