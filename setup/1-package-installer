@@ -69,7 +69,7 @@ then
     apt install --asume-yes $package
   done
 else
-  for packate in $packages_to_install
+  for package in $packages_to_install
   do
     sudo apt install --assume-yes $package
   done
