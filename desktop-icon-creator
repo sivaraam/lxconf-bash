@@ -1,0 +1,4 @@
+#! /bin/bash
+# Script used to create desktop icons for applications
+# that don't create one themselves.
+
