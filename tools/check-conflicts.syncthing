@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# A script to find any conflicting files in
+# folders synced using Syncthing.
+
+POSSIBLE_PATHS[1]='/home/unique/Sync/Android_Backup'
+POSSIBLE_PATHS[2]='/home/unique/Sync/Antennapod'
+POSSIBLE_PATHS[3]='/home/lglitch/Documents/Work/Archive'
+POSSIBLE_PATHS[4]='/home/lglitch/Pictures/Mobile/DCIM-Photos'
+POSSIBLE_PATHS[5]='/home/lglitch/Pictures/Mobile/DCIM-Photos-External-Mobile'
+POSSIBLE_PATHS[6]='/home/lglitch/Documents/Work' # This is a receive only folder in mobile
+POSSIBLE_PATHS[7]='/home/unique/Sync/Downloads-Mobile'
+POSSIBLE_PATHS[8]='/home/glitch/Sync/Misc-Sync'
+POSSIBLE_PATHS[9]='/home/glitch/Sync/Misc-Sync-Work'
+POSSIBLE_PATHS[10]='/home/lglitch/Music'
+POSSIBLE_PATHS[11]='/home/lglitch/Pictures/Mobile/And-The-Rest'
+POSSIBLE_PATHS[12]='/home/lglitch/Pictures/Work'
+POSSIBLE_PATHS[13]='/mnt/Miscellaneous/Podcasts'
+POSSIBLE_PATHS[14]='/home/lglitch/Pictures/Mobile/Screenshots'
+POSSIBLE_PATHS[15]='/home/unique/Sync/Signal-Backup'
+POSSIBLE_PATHS[16]='/home/unique/Sync/Simpletasks-TODO_list'
+POSSIBLE_PATHS[17]='/home/unique/Sync/Train_Tickets-App/'
+POSSIBLE_PATHS_NUM=17
+
+SYNC_CONFLICT_IDENTIFIER='sync-conflict'
+
+for i in `seq 1 $POSSIBLE_PATHS_NUM`
+do
+	echo "Searching for conflicts in '${POSSIBLE_PATHS[$i]}'"
+	find ${POSSIBLE_PATHS[$i]} -name "*$SYNC_CONFLICT_IDENTIFIER*"
+	echo
+done
