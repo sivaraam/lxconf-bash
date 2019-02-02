@@ -101,5 +101,9 @@ execute_git alias.dic '!git diff --color | diff-so-fancy'
 execute_git grep.lineNumber true
 # execute_git diff.indentHeuristic true # use the experimental heuristic
 
+# use the experimental commit graph feature
+#
+# Ref: https://blogs.msdn.microsoft.com/devops/2018/06/25/supercharging-the-git-commit-graph/
+execute_git core.commitGraph true
 
 info 'Global configuration of Git terminated.'
