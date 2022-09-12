@@ -92,6 +92,7 @@ configure_editor "$1"
 # execute_git help.autoCorrect 2
 execute_git credential.helper cache # Currently use default timeout (--timeout 900 [15 minutes])
 execute_git push.default simple  # Embrace new git push behaviour
+execute_git push.autoSetupRemote true  # Local and remote branche names are very likely same
 execute_git alias.send-git "send-email --to='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.complete-send-git "send-email --to='$MAINTAINER' --cc='$MAILING_LIST' --suppress-cc=self --compose"
 execute_git alias.refer-commit "show -s --date=short --pretty='format:%h (%s, %ad)'"
@@ -104,11 +105,6 @@ execute_git grep.lineNumber true
 # Hide the 'a/' and 'b/' prefix in Git
 #
 # Ref: https://mobile.twitter.com/brandur/status/1182066723337293828
-execute_git diff.noprefix true
-
-# use the experimental commit graph feature
-#
-# Ref: https://blogs.msdn.microsoft.com/devops/2018/06/25/supercharging-the-git-commit-graph/
-execute_git core.commitGraph true
+# execute_git diff.noprefix true
 
 info 'Global configuration of Git terminated.'
