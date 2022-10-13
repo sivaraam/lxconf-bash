@@ -101,6 +101,9 @@ execute_git push.default simple  # Embrace new git push behaviour
 execute_git push.autoSetupRemote true  # Local and remote branche names are very likely same
 execute_git merge.conflictStyle "diff3"
 execute_git grep.lineNumber true
+
+execute_git rerere.enabled true
+
 # execute_git diff.indentHeuristic true # use the experimental heuristic
 
 # Hide the 'a/' and 'b/' prefix in Git
