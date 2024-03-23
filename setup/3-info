@@ -1,0 +1,2 @@
+echo "After all is done install jump: https://github.com/gsamokovarov/jump"
+echo "Also, take care of setting up startship: https://starship.rs/guide/"
