@@ -1,2 +1,21 @@
-echo "After all is done install jump: https://github.com/gsamokovarov/jump"
-echo "Also, take care of setting up startship: https://starship.rs/guide/"
+#! /bin/bash
+# Script that informs to install some crucial
+# software.
+#
+
+# source: https://stackoverflow.com/a/246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+. $DIR/../lib/common-script
+
+info 'After all is done. Take care of installing the following crucial tools'
+info
+info 'Jump (terminal navigation): https://github.com/gsamokovarov/jump'
+info 'Startship (good terminal prompt): https://starship.rs/guide/'
+info 'ASDF (multiple runtime package manager): https://asdf-vm.com/'
