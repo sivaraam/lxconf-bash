@@ -15,7 +15,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 . $DIR/../lib/common-script
 
 dict_packages='dict dict-gcide dict-wn'
-essential_packages="$dict_packages git vim zeal gparted tlp pm-utils g++ keepassxc terminator diodon"
+essential_packages="$dict_packages git vim zeal gparted tlp pm-utils g++ keepassxc terminator diodon ripgrep"
 optional_packages='thunderbird syncthing git-email pidgin vlc meld simplescreenrecorder'
 
 info 'Package installation initiated ..'
