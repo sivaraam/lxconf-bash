@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox Nightly
+GenericName=Web Browser
+Comment=Browse the web
+Categories=Network;WebBrowser;Security;
+Exec=/mnt/e/Software/firefox-nightly/firefox/firefox
+Icon=/mnt/e/Software/firefox-nightly/firefox/browser/chrome/icons/default/default128.png
+Terminal=false

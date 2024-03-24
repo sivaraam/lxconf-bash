@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Android Studio
+GenericName=IDE
+# Application, Links (URL), or Directory (sub-group for applications)
+Type=Application
+Encoding=UTF-8
+Icon=/mnt/e/Software/android-studio/bin/studio.svg
+Comment=Java IDE
+Exec=/mnt/e/Software/android-studio/bin/studio.sh
+# To pass arguments use %u or %U
+# Exec=/thing/to/execute %u
+# Should run in a terminal?
+Terminal=false

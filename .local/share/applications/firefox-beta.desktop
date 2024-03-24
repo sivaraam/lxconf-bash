@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox Beta
+GenericName=Web Browser
+Comment=Browse the web
+Categories=Network;WebBrowser;Security;
+Exec=/mnt/e/Software/firefox-beta/firefox
+Icon=/mnt/e/Software/firefox-beta/browser/chrome/icons/default/default128.png
+Terminal=false
