@@ -1,8 +1,8 @@
 #! /bin/bash
 #
-# Note: This file exists for historical purposes. A more cleverly
-# crafted config file would be made available by means of the
-# dotfiles directory.
+# Note: This file exists for historical purposes. A more elaborately
+# configured .vimrc file is available in the parent directory. It's better
+# to make use of the same.
 #
 # Script that customises Vim for personal needs
 # Currently it sets functionality for converting tab to spaces
