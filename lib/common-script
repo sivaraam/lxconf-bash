@@ -64,11 +64,6 @@ notify() {
 
 # Function that informs user about an event.
 info() {
-  if [ -z "$1" ]
-  then
-    error $FUNCTION_ERR_MSG $EXIT_FATAL
-  fi
-
   echo -e "${GREEN}INFO:${NC} $1"
 }
 
